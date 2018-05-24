@@ -1,0 +1,114 @@
+{
+  "properties": [
+    {
+      "name": "app.mail.auth.host",
+      "type": "java.lang.String",
+      "description": "mail server hot."
+    },
+    {
+      "name": "app.mail.auth.port",
+      "type": "java.lang.Integer",
+      "description": "mail server port."
+    },
+    {
+      "name": "app.mail.auth.username",
+      "type": "java.lang.String",
+      "description": "mail server username."
+    },
+    {
+      "name": "app.mail.auth.password",
+      "type": "java.lang.String",
+      "description": "mail server password."
+    },
+    {
+      "name": "app.mail.auth.protocol",
+      "type": "java.lang.String",
+      "description": "mail server protocol."
+    },
+    {
+      "name": "app.mail.properties.mail.smtp.auth.enable",
+      "type": "java.lang.Boolean",
+      "description": "Define if the SMTP server need authentication."
+    },
+    {
+      "name": "app.mail.properties.mail.smtp.starttls.enable",
+      "type": "java.lang.Boolean",
+      "description": "Define if the SMTP authentication is with time to live."
+    },
+    {
+      "name": "app.mail.properties.debug.enable",
+      "type": "java.lang.Boolean",
+      "description": "Enable SMTP client debug mode."
+    },
+    {
+      "name": "app.swagger.basePackage",
+      "type": "java.lang.String",
+      "description": "Swagger basePackage."
+    },
+    {
+      "name": "app.swagger.api.title",
+      "type": "java.lang.String",
+      "description": "Swagger API title."
+    },
+    {
+      "name": "app.swagger.api.description",
+      "type": "java.lang.String",
+      "description": "Swagger API description."
+    },
+    {
+      "name": "app.swagger.api.version",
+      "type": "java.lang.String",
+      "description": "Swagger API version."
+    },
+    {
+      "name": "app.swagger.api.termsOfService",
+      "type": "java.lang.String",
+      "description": "Swagger API termsOfService."
+    },
+    {
+      "name": "app.swagger.api.license.name",
+      "type": "java.lang.String",
+      "description": "Swagger API license name."
+    },
+    {
+      "name": "app.swagger.api.license.url",
+      "type": "java.lang.String",
+      "description": "Swagger API license url."
+    },
+    {
+      "name": "app.swagger.api.contact.name",
+      "type": "java.lang.String",
+      "description": "Swagger API contact name."
+    },
+    {
+      "name": "app.swagger.api.contact.url",
+      "type": "java.lang.String",
+      "description": "Swagger API contact url."
+    },
+    {
+      "name": "app.swagger.api.contact.email",
+      "type": "java.lang.String",
+      "description": "Swagger API contact email."
+    },
+    {
+      "name": "app.attachments.directory",
+      "type": "java.lang.String",
+      "description": "Directory to push saved attachments."
+    },
+    {
+      "name": "app.feature.emailer.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Feature activation for email notification."
+    },
+    {
+      "name": "app.auth.token.expiration.days",
+      "type": "java.lang.Integer",
+      "description": "Token validity days."
+    },
+    {
+      "name": "app.swagger.api.name",
+      "type": "java.lang.String",
+      "description": "Description for app.swagger.api.name."
+    }
+  ]
+}
