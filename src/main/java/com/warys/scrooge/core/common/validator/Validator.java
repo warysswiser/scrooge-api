@@ -13,7 +13,7 @@ public class Validator<T> {
 
     private final List<Throwable> exceptions = new ArrayList<>();
 
-    private Validator(T validatable) {
+    Validator(T validatable) {
         this.validatable = validatable;
     }
 
@@ -33,12 +33,12 @@ public class Validator<T> {
         return this;
     }
 
-    public <U> Validator<T> validate(Function<T, U> projection, Predicate<U> validation,
-                                     String message) {
+    <U> Validator<T> validate(Function<T, U> projection, Predicate<U> validation,
+                              String message) {
         return validate(projection.andThen(validation::test)::apply, message);
     }
 
-    public T get() throws ValidationException {
+    T get() {
         if (exceptions.isEmpty()) {
             return validatable;
         }
@@ -46,4 +46,5 @@ public class Validator<T> {
         exceptions.forEach(e::addSuppressed);
         throw e;
     }
+
 }

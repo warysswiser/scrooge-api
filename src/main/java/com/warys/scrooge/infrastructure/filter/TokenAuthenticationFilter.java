@@ -18,6 +18,7 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 public final class TokenAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
     private static final String BEARER = "Bearer";
+    static final String TOKEN_QUERY_PARAM = "t";
 
     public TokenAuthenticationFilter(final RequestMatcher requiresAuth) {
         super(requiresAuth);
@@ -27,16 +28,21 @@ public final class TokenAuthenticationFilter extends AbstractAuthenticationProce
     public Authentication attemptAuthentication(
             final HttpServletRequest request,
             final HttpServletResponse response) {
-        final String param = ofNullable(request.getHeader(AUTHORIZATION))
-                .orElse(request.getParameter("t"));
 
-        final String token = ofNullable(param)
-                .map(value -> removeStart(value, BEARER))
-                .map(String::trim)
-                .orElseThrow(() -> new BadCredentialsException("Missing Authentication Token"));
+        final String token = getTokenFromRequest(request);
 
         final Authentication auth = new UsernamePasswordAuthenticationToken(token, token);
         return getAuthenticationManager().authenticate(auth);
+    }
+
+    String getTokenFromRequest(HttpServletRequest request) {
+        final String param = ofNullable(request.getHeader(AUTHORIZATION))
+                .orElse(request.getParameter(TOKEN_QUERY_PARAM));
+
+        return ofNullable(param)
+                .map(value -> removeStart(value, BEARER))
+                .map(String::trim)
+                .orElseThrow(() -> new BadCredentialsException("Missing Authentication Token"));
     }
 
     @Override

@@ -26,11 +26,16 @@ public class ScroogeApplicationShould {
     private UserController userController;
 
     @Test
-    public void loadContext() {
+    public void load_context() {
         assertThat(publicUsersController).isNotNull();
         assertThat(attachmentsController).isNotNull();
         assertThat(budgetsController).isNotNull();
         assertThat(userController).isNotNull();
+    }
+
+    @Test
+    public void launch_main() {
+        ScroogeApplication.main(new String[]{});
     }
 
 }

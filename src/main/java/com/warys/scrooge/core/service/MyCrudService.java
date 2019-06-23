@@ -9,7 +9,7 @@ public interface MyCrudService<I, O> {
 
     O retrieve(SessionUser me, String itemId) throws ApiException;
 
-    O create(SessionUser me, I payload);
+    O create(SessionUser me, I payload) throws ApiException;
 
     void remove(SessionUser me, String itemId) throws ApiException;
 
@@ -17,5 +17,5 @@ public interface MyCrudService<I, O> {
 
     O update(SessionUser me, String itemId, I payload) throws ApiException;
 
-    List<O> getAll(SessionUser me);
+    List<O> getAll(SessionUser me) throws ApiException;
 }

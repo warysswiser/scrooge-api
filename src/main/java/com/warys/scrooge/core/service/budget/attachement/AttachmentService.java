@@ -2,7 +2,8 @@ package com.warys.scrooge.core.service.budget.attachement;
 
 import com.warys.scrooge.core.model.budget.Attachment;
 import com.warys.scrooge.core.model.builder.AttachmentBuilder;
-import com.warys.scrooge.core.model.user.User;
+import com.warys.scrooge.core.model.user.SessionUser;
+import com.warys.scrooge.infrastructure.exception.ApiException;
 import com.warys.scrooge.infrastructure.exception.business.InconsistentElementException;
 import com.warys.scrooge.infrastructure.exception.technical.TechnicalException;
 import org.slf4j.LoggerFactory;
@@ -10,34 +11,34 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Service
-public class AttachmentService {
+public class AttachmentService implements CrudAttachmentService {
 
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(AttachmentService.class);
 
     @Value("${app.attachments.directory}")
     private String uploadedFolder;
 
-    public void check(Attachment attachment) throws InconsistentElementException {
-        if (attachment != null && attachment.getCreationDate() != null
-                && attachment.getUri() != null) {
-            File file = new File(attachment.getUri());
-            if (!file.exists() || !file.isFile()) {
-                throw new InconsistentElementException("Attachment provided have not been uploaded yet. " +
-                        "Attachment must result from [POST /me/attachment] endpoint." +
-                        "However Attachment is optional.");
-            }
+    @Override
+    public void check(Attachment attachment) throws ApiException {
+        Objects.requireNonNull(attachment, "Non null attachment must be given");
+        if (!attachment.hasBeenUploadedYet()) {
+            throw new InconsistentElementException("Attachment provided have not been uploaded yet. " +
+                    "Attachment must result from [POST /me/attachment] endpoint." +
+                    "However Attachment is optional.");
         }
     }
 
-    public Attachment createAttachment(User me, MultipartFile file) throws TechnicalException {
+    @Override
+    public Attachment create(SessionUser me, MultipartFile file) throws TechnicalException {
+        Objects.requireNonNull(file, "Non null MultipartFile must be given");
         try {
             var userDir = Paths.get(uploadedFolder, me.getId());
 

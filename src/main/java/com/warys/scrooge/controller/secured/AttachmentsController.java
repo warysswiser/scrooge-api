@@ -1,7 +1,7 @@
 package com.warys.scrooge.controller.secured;
 
+import com.warys.scrooge.command.account.UserCommand;
 import com.warys.scrooge.core.model.budget.Attachment;
-import com.warys.scrooge.core.model.user.User;
 import com.warys.scrooge.core.service.budget.attachement.AttachmentService;
 import com.warys.scrooge.infrastructure.exception.ApiException;
 import org.springframework.http.HttpStatus;
@@ -26,8 +26,8 @@ public final class AttachmentsController {
     @PostMapping("")
     @ResponseBody
     public ResponseEntity<Attachment> postAttachment(
-            @AuthenticationPrincipal final User me, @NotNull @RequestParam("file") MultipartFile file) throws ApiException {
-        Attachment attachment = attachmentService.createAttachment(me, file);
+            @AuthenticationPrincipal final UserCommand me, @NotNull @RequestParam("file") MultipartFile file) throws ApiException {
+        Attachment attachment = attachmentService.create(me, file);
         return new ResponseEntity<>(attachment, HttpStatus.CREATED);
     }
 }

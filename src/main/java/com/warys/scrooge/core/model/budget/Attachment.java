@@ -3,6 +3,7 @@ package com.warys.scrooge.core.model.budget;
 import com.warys.scrooge.core.model.GenericModel;
 
 import javax.validation.constraints.NotEmpty;
+import java.io.File;
 
 public class Attachment extends GenericModel {
 
@@ -39,5 +40,13 @@ public class Attachment extends GenericModel {
 
     public void setFileType(String fileType) {
         this.fileType = fileType;
+    }
+
+    public boolean hasBeenUploadedYet() {
+        if (getCreationDate() == null || getUri() == null) {
+            return false;
+        }
+        File file = new File(getUri());
+        return file.exists() && file.isFile();
     }
 }

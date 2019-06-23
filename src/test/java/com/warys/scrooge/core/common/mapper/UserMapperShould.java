@@ -16,7 +16,7 @@ public class UserMapperShould {
 
     private static final LocalDateTime NOW = LocalDateTime.now();
 
-    private UserMapper tested = new UserMapper();
+    private BeanMapper<User, UserCommand> tested = new UserMapper();
 
     @Test
     public void map_user_to_command() {

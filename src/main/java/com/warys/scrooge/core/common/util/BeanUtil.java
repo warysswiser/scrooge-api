@@ -30,7 +30,7 @@ public class BeanUtil {
                     Object value = PropertyUtils.getProperty(orig, key);
                     if (!Objects.isNull(value)) {
                         if (value.getClass().getPackage().getName().contains(PROJECT_PACKAGE_NAME)) {
-                            copyBean(value, PropertyUtils.getProperty(dest, key));
+                            makeRecursiveCall(dest, key, value);
                         } else {
                             copyProperty(dest, key, value);
                         }
@@ -39,6 +39,21 @@ public class BeanUtil {
             }
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             LOGGER.error("Error occurred during mapping : {}", e.getMessage());
+        }
+    }
+
+    private static void makeRecursiveCall(Object dest, String key, Object orig) {
+        try {
+            final Object currentInstance = PropertyUtils.getProperty(dest, key);
+            if (null != currentInstance) {
+                copyBean(orig, currentInstance);
+            } else {
+                final Object newInstance = PropertyUtils.getPropertyType(dest, key).getConstructor().newInstance();
+                BeanUtils.setProperty(dest, key, newInstance);
+                copyBean(orig, newInstance);
+            }
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            LOGGER.error("Error occurred during recursive call : {}", e.getMessage());
         }
     }
 

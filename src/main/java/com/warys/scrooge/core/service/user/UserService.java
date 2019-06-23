@@ -4,26 +4,25 @@ import com.warys.scrooge.command.account.PasswordCommand;
 import com.warys.scrooge.command.account.UserCommand;
 import com.warys.scrooge.core.model.user.SessionUser;
 import com.warys.scrooge.core.service.MyCrudService;
-import com.warys.scrooge.infrastructure.exception.business.DuplicatedInformationException;
-import com.warys.scrooge.infrastructure.exception.business.auth.InvalidCredentialsException;
+import com.warys.scrooge.infrastructure.exception.ApiException;
 
 import java.util.List;
 
 public interface UserService extends MyCrudService<UserCommand, UserCommand> {
 
-    default UserCommand updateUser(SessionUser user, UserCommand newUser) {
+    default UserCommand updateUser(SessionUser user, UserCommand newUser) throws ApiException {
         throw new UnsupportedOperationException();
     }
 
-    default UserCommand partialUpdateUser(SessionUser user, UserCommand partialNewUser) {
+    default UserCommand partialUpdateUser(SessionUser user, UserCommand partialNewUser) throws ApiException {
         throw new UnsupportedOperationException();
     }
 
-    default UserCommand getUserByCredentials(String email, String password) throws InvalidCredentialsException {
+    default UserCommand getUserByCredentials(String email, String password) throws ApiException {
         throw new UnsupportedOperationException();
     }
 
-    default void checkUserEmail(String email) throws DuplicatedInformationException {
+    default void checkUserEmail(String email) throws ApiException {
         throw new UnsupportedOperationException();
     }
 
@@ -57,11 +56,11 @@ public interface UserService extends MyCrudService<UserCommand, UserCommand> {
         throw new UnsupportedOperationException();
     }
 
-    default void updatePassword(SessionUser me, PasswordCommand newPassword) {
+    default void updatePassword(SessionUser me, PasswordCommand newPassword) throws ApiException {
         throw new UnsupportedOperationException();
     }
 
-    default UserCommand getMe(SessionUser user){
+    default UserCommand getMe(SessionUser user) throws ApiException {
         throw new UnsupportedOperationException();
     }
 }
