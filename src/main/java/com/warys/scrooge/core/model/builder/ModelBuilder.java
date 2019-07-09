@@ -2,9 +2,9 @@ package com.warys.scrooge.core.model.builder;
 
 import java.util.function.Consumer;
 
-interface ModelBuilder<E, T> {
+interface ModelBuilder<B, R> {
 
-    E with(Consumer<E> builderFunction);
+    B with(Consumer<B> builderFunction);
 
-    T build();
+    R build();
 }

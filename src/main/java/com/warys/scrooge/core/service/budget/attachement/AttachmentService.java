@@ -26,6 +26,12 @@ public class AttachmentService implements CrudAttachmentService {
     @Value("${app.attachments.directory}")
     private String uploadedFolder;
 
+    public AttachmentService(String uploadedFolder) {
+        this.uploadedFolder = uploadedFolder;
+    }
+
+    public AttachmentService() {}
+
     @Override
     public void check(Attachment attachment) throws ApiException {
         Objects.requireNonNull(attachment, "Non null attachment must be given");

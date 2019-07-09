@@ -16,6 +16,13 @@ public abstract class GenericModel {
     private LocalDateTime updateDate;
     private LocalDateTime deletionDate;
 
+    public GenericModel(String id) {
+        this.id = id;
+    }
+
+    public GenericModel() {
+    }
+
     public String getId() {
         return id;
     }

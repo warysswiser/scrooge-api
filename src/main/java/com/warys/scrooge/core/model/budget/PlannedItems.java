@@ -13,6 +13,17 @@ public class PlannedItems extends GenericModel {
     private Set<Expense> expenses;
     private Set<Resource> resources;
 
+    public PlannedItems(String id, String budgetId, String ownerId, Set<Expense> expenses, Set<Resource> resources) {
+        super(id);
+        this.budgetId = budgetId;
+        this.ownerId = ownerId;
+        this.expenses = expenses;
+        this.resources = resources;
+    }
+
+    public PlannedItems() {
+    }
+
     public String getBudgetId() {
         return budgetId;
     }

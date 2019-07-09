@@ -1,5 +1,6 @@
 package com.warys.scrooge.core.service.notification;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 public class MailNotifier implements Notifier {
 
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(MailNotifier.class);
+    private static final String SUBSCRIPTION_MESSAGE = "Thanks for you subscription in scrooge";
     private final JavaMailSender emailSender;
     @Value("${app.feature.emailer.enabled}")
     private boolean isEnables;
@@ -21,7 +23,7 @@ public class MailNotifier implements Notifier {
     }
 
     public void sendSimpleMessage(String to, String subject, String text) {
-        logger.info("Sending message %s to % with subject %s");
+        logger.info("Sending message {} to {} with subject {}", text, to, subject);
         if (isEnables) {
             var message = new SimpleMailMessage();
             message.setTo(to);
@@ -32,6 +34,11 @@ public class MailNotifier implements Notifier {
     }
 
     public void sendSubscriptionMessage(String to) {
-        sendSimpleMessage(to, "Subscription", "Thanks for you subscription in scrooge");
+        sendSimpleMessage(to, "Subscription", SUBSCRIPTION_MESSAGE);
+    }
+
+    @VisibleForTesting
+    public void setEnables(boolean enables) {
+        isEnables = enables;
     }
 }

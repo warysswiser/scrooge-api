@@ -172,15 +172,15 @@ public class BeanUtilShould {
         private String name;
         private GenericModel model;
 
-        GenericModelWrapper() {
+        public GenericModelWrapper() {
         }
 
-        GenericModelWrapper(String name, GenericModel model) {
+        public GenericModelWrapper(String name, GenericModel model) {
             this.name = name;
             this.model = model;
         }
 
-        String getName() {
+        public String getName() {
             return name;
         }
 
@@ -188,7 +188,7 @@ public class BeanUtilShould {
             this.name = name;
         }
 
-        GenericModel getModel() {
+        public GenericModel getModel() {
             return model;
         }
 

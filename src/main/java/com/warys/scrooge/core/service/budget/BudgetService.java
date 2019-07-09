@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class BudgetService implements MyCrudService<Budget, Budget> {
@@ -23,6 +24,7 @@ public class BudgetService implements MyCrudService<Budget, Budget> {
 
     @Override
     public Budget retrieve(SessionUser me, String itemId) throws ApiException {
+        Objects.requireNonNull(itemId);
         return budgetRepository.findByIdAndOwnerId(itemId, me.getId())
                 .orElseThrow(
                         () -> new ElementNotFoundException("Could not found budget with id : " + itemId));
@@ -31,21 +33,23 @@ public class BudgetService implements MyCrudService<Budget, Budget> {
 
     @Override
     public Budget create(SessionUser me, Budget payload) {
+        Objects.requireNonNull(payload);
         payload.setOwnerId(me.getId());
         return budgetRepository.insert(payload);
     }
 
     @Override
     public void remove(SessionUser me, String itemId) throws ApiException {
-        Budget budgetToRemove = budgetRepository.findByIdAndOwnerId(itemId, me.getId())
-                .orElseThrow(
-                        () -> new ElementNotFoundException("Could not found budget with id : " + itemId));
+        Budget budgetToRemove = retrieve(me, itemId);
         budgetRepository.delete(budgetToRemove);
     }
 
     @Override
     public Budget update(SessionUser me, String itemId, Budget payload) {
+        Objects.requireNonNull(itemId);
+        Objects.requireNonNull(payload);
         payload.setOwnerId(me.getId());
+        payload.setId(itemId);
         return budgetRepository.save(payload);
     }
 
@@ -56,6 +60,9 @@ public class BudgetService implements MyCrudService<Budget, Budget> {
 
     @Override
     public Budget partialUpdate(SessionUser me, String itemId, Budget partialPayload) throws ApiException {
+        Objects.requireNonNull(itemId);
+        Objects.requireNonNull(partialPayload);
+
         Budget budgetToUpdate = retrieve(me, itemId);
         BeanUtil.copyBean(partialPayload, budgetToUpdate);
         return budgetRepository.save(budgetToUpdate);

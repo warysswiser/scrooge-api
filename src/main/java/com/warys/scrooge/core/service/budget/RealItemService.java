@@ -8,9 +8,9 @@ import com.warys.scrooge.infrastructure.exception.ApiException;
 import com.warys.scrooge.infrastructure.exception.business.ElementNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class RealItemService implements ItemService<RealItems, RealItems> {
@@ -24,29 +24,33 @@ public class RealItemService implements ItemService<RealItems, RealItems> {
 
     @Override
     public RealItems retrieve(SessionUser me, String itemId) throws ApiException {
+        Objects.requireNonNull(itemId);
         return realItemRepository.findByIdAndOwnerId(itemId, me.getId())
                 .orElseThrow(
-                        () -> new ElementNotFoundException("Could not found budget with id : " + itemId));
+                        () -> new ElementNotFoundException("Could not found item with id : " + itemId));
     }
 
     @Override
     public RealItems create(SessionUser me, RealItems payload) {
-        var realItem = new RealItems();
-        BeanUtil.copyBean(payload, realItem);
-        realItem.setCreationDate(LocalDateTime.now());
-        return realItemRepository.insert(realItem);
+        Objects.requireNonNull(payload);
+        payload.setOwnerId(me.getId());
+        return realItemRepository.insert(payload);
     }
 
     @Override
     public void remove(SessionUser me, String itemId) throws ApiException {
+        Objects.requireNonNull(itemId);
         RealItems itemToRemove = retrieve(me, itemId);
-        itemToRemove.setDeletionDate(LocalDateTime.now());
-        realItemRepository.save(itemToRemove);
+        realItemRepository.delete(itemToRemove);
     }
 
     @Override
-    public RealItems update(SessionUser me, String itemId, RealItems item) throws ApiException {
-        return realItemRepository.save(partialUpdate(me, itemId, item));
+    public RealItems update(SessionUser me, String itemId, RealItems item) {
+        Objects.requireNonNull(itemId);
+        Objects.requireNonNull(item);
+        item.setId(itemId);
+        item.setOwnerId(me.getId());
+        return realItemRepository.save(item);
     }
 
     @Override
@@ -56,6 +60,8 @@ public class RealItemService implements ItemService<RealItems, RealItems> {
 
     @Override
     public RealItems partialUpdate(SessionUser me, String itemId, RealItems partialItem) throws ApiException {
+        Objects.requireNonNull(itemId);
+        Objects.requireNonNull(partialItem);
         RealItems itemToUpdate = retrieve(me, itemId);
         BeanUtil.copyBean(partialItem, itemToUpdate);
         return realItemRepository.save(itemToUpdate);

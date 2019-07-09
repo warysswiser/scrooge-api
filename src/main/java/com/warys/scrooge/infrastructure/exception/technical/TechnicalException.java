@@ -10,8 +10,4 @@ public class TechnicalException extends ApiException {
     public TechnicalException(Throwable cause) {
         super(cause);
     }
-
-    public TechnicalException(String message) {
-        super(message);
-    }
 }
