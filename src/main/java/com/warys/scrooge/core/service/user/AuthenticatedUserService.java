@@ -37,26 +37,17 @@ public class AuthenticatedUserService implements UserService {
     @Override
     public UserCommand updateUser(SessionUser user, UserCommand newUser) throws ElementNotFoundException {
         Objects.requireNonNull(newUser, "Null user set");
-
-        final User userToUpdate = getUserById(user);
-
         UserCommandValidator.of(newUser).validateForUpdate();
 
-        BeanUtil.copyBean(userToUpdate, newUser);
+        final User userToUpdate = getUserById(user);
+        BeanUtil.copyBean(newUser, userToUpdate);
 
         return Optional.of(userRepository.save(userToUpdate)).map(mapper.mapToInput()).orElseThrow();
     }
 
     @Override
     public UserCommand partialUpdateUser(SessionUser user, UserCommand partialItem) throws ElementNotFoundException {
-        Objects.requireNonNull(partialItem, "Null user set");
-
-        UserCommandValidator.of(partialItem).validateForUpdate();
-
-        final User userToUpdate = getUserById(user);
-        BeanUtil.copyBean(userToUpdate, partialItem);
-
-        return Optional.of(userRepository.save(userToUpdate)).map(mapper.mapToInput()).orElseThrow();
+        return updateUser(user, partialItem);
     }
 
     @Override

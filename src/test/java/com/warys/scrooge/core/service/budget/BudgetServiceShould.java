@@ -146,7 +146,7 @@ public class BudgetServiceShould {
 
 
     @Test
-    public void make_a_partial_copy_of_budget() throws ApiException {
+    public void make_a_partial_update_of_budget() throws ApiException {
         final Budget oldBudget = new BudgetBuilder()
                 .with(o -> {
                     o.id = BUDGET_ID;
