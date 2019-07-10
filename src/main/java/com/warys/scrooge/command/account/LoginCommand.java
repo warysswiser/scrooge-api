@@ -12,6 +12,11 @@ public class LoginCommand {
     @Email
     private String email;
 
+    public LoginCommand(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     public String getPassword() {
         return password;
     }

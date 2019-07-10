@@ -9,10 +9,6 @@ public class ErrorResponse implements Serializable {
     private String exception;
     private String path;
 
-    public ErrorResponse() {
-        super();
-    }
-
     public ErrorResponse(Date timestamp, String message, String path, String exception) {
         super();
         this.timestamp = timestamp;
@@ -33,23 +29,12 @@ public class ErrorResponse implements Serializable {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
-
     public String getMessage() {
         return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     public String getPath() {
         return path;
     }
 
-    public void setPath(String path) {
-        this.path = path;
-    }
 }

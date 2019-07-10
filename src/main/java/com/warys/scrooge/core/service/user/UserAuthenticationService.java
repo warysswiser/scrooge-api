@@ -8,8 +8,12 @@ import com.warys.scrooge.core.model.user.User;
 import com.warys.scrooge.core.repository.UserRepository;
 import com.warys.scrooge.core.service.notification.Notifier;
 import com.warys.scrooge.infrastructure.exception.ApiException;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -34,7 +38,7 @@ public class UserAuthenticationService implements AuthenticationService {
     private int expirationDays;
 
 
-    public UserAuthenticationService(UserService publicUserService, UserRepository userRepository, Notifier mailNotifier) {
+    public UserAuthenticationService(@Qualifier("publicUserService") UserService publicUserService, UserRepository userRepository, Notifier mailNotifier) {
         this.publicUserService = publicUserService;
         this.userRepository = userRepository;
         this.mailNotifier = mailNotifier;
@@ -47,17 +51,12 @@ public class UserAuthenticationService implements AuthenticationService {
 
         String token = Jwts.builder()
                 .setSubject("authentication token")
-                .setExpiration(Date.from(LocalDateTime.now().plusDays(expirationDays).toInstant(ZoneOffset.UTC)))
+                .setExpiration(Date.from(LocalDateTime.now().plusYears(expirationDays).toInstant(ZoneOffset.UTC)))
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 .claim("userId", user.getId())
                 .compact();
 
-        final LoginResponse loginResponse = new LoginResponse(token);
-        loginResponse.setId(user.getId());
-        loginResponse.setUsername(user.getUsername());
-        loginResponse.setEmail(user.getEmail());
-
-        return loginResponse;
+        return new LoginResponse(token, user.getId(), user.getUsername(), user.getEmail());
     }
 
     @Override
@@ -78,7 +77,10 @@ public class UserAuthenticationService implements AuthenticationService {
         ).build();
 
         final var result = new UserCommand();
-        BeanUtil.copyBean(userRepository.insert(user), result);
+
+        final User createdUser = userRepository.insert(user);
+
+        BeanUtil.copyBean(createdUser, result);
 
         mailNotifier.sendSubscriptionMessage(user.getEmail());
 
@@ -95,13 +97,13 @@ public class UserAuthenticationService implements AuthenticationService {
             final String userId = claims.get("userId", String.class);
             if (null != userId && claims.getExpiration().after(new Date())) {
                 var userPayload = new UserCommand();
-                BeanUtil.copyBean(userRepository.findById(userId).get(), userPayload);
+                final User savedUser = userRepository.findById(userId).orElseThrow();
+                BeanUtil.copyBean(savedUser, userPayload);
                 return Optional.of(userPayload);
             }
-        } catch (MalformedJwtException | SignatureException e) {
+        } catch (JwtException e) {
             logger.error("an error occurred", e);
         }
-
         return Optional.empty();
     }
 
