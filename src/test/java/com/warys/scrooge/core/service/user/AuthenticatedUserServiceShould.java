@@ -192,7 +192,7 @@ public class AuthenticatedUserServiceShould {
     @Test
     public void update_password() throws ApiException {
         final PasswordCommand command = new PasswordCommand();
-        command.setPassword("aPassWord1234");
+        command.setPassword("aPassWord1234@domain.com");
 
         final User oldUser = new UserBuilder()
                 .with(o -> {

@@ -40,7 +40,7 @@ public final class UserController {
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
-    @PutMapping("/activate/password")
+    @PutMapping("/password")
     public ResponseEntity<String> updatePassword
             (@AuthenticationPrincipal final SessionUser user, @RequestBody final PasswordCommand password) throws ApiException {
         authenticatedUserService.updatePassword(user, password);
