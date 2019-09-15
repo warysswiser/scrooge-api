@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.5.RELEASE</version>
+        <version>2.1.8.RELEASE</version>
         <relativePath/>
     </parent>
 
@@ -31,10 +31,25 @@
 
         <springframework.version>5.1.7.RELEASE</springframework.version>
         <springfox.version>2.9.2</springfox.version>
+
+
         <jaxb.version>2.3.1</jaxb.version>
+        <commons-lang3.version>3.8.1</commons-lang3.version>
+        <jjwt.version>0.9.1</jjwt.version>
+        <commons-beanutils.version>1.9.3</commons-beanutils.version>
+        <assertj-core.version>3.13.2</assertj-core.version>
+        <powermock-module-junit4.version>2.0.0</powermock-module-junit4.version>
+        <powermock-api-mockito2.version>2.0.2</powermock-api-mockito2.version>
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+        <jacoco-maven-plugin.version>0.8.3</jacoco-maven-plugin.version>
+        <coveralls-maven-plugin.version>4.3.0</coveralls-maven-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
     </properties>
 
     <dependencies>
+        <!-- ****************************************************************************** -->
+        <!--  ************************* Spring Dependencies ******************************  -->
+        <!--  ***************************************************************************** -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
@@ -61,27 +76,6 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.8.1</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.9.1</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${springfox.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${springfox.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
@@ -92,46 +86,82 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <!-- ****************************************************************************** -->
+        <!--  ************************* Utils Dependencies *******************************  -->
+        <!--  ***************************************************************************** -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>1.9.3</version>
+            <version>${commons-beanutils.version}</version>
         </dependency>
 
-        <!-- Jaxb dependencies -->
+        <!-- ****************************************************************************** -->
+        <!--  ************************ Swagger Dependencies ******************************  -->
+        <!--  ***************************************************************************** -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox.version}</version>
+        </dependency>
+
+        <!-- ****************************************************************************** -->
+        <!--  ************************* Java EE Dependencies *****************************  -->
+        <!--  ***************************************************************************** -->
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
             <version>${jaxb.version}</version>
         </dependency>
+
+        <!-- ****************************************************************************** -->
+        <!--  ************************* Tests Dependencies *******************************  -->
+        <!--  ***************************************************************************** -->
         <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>15.0</version>
-            <scope>compile</scope>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj-core.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-module-junit4</artifactId>
-            <version>2.0.0</version>
+            <version>${powermock-module-junit4.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-api-mockito2</artifactId>
-            <version>2.0.2</version>
+            <version>${powermock-api-mockito2.version}</version>
             <scope>test</scope>
         </dependency>
-
 
     </dependencies>
 
     <build>
         <plugins>
+            <!-- ****************************************************************************** -->
+            <!--  *************************** Maven plugins **********************************  -->
+            <!--  ***************************************************************************** -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <inherited>true</inherited>
                 <configuration>
                     <encoding>${source.encoding}</encoding>
@@ -140,8 +170,32 @@
             </plugin>
 
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <includes>
+                        <include>*Should*</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <!-- ****************************************************************************** -->
+            <!--  *************************** Spring plugins *********************************  -->
+            <!--  ***************************************************************************** -->
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.4</version>
+            </plugin>
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>${coveralls-maven-plugin.version}</version>
             </plugin>
         </plugins>
     </build>
@@ -160,7 +214,6 @@
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>0.8.3</version>
                         <executions>
                             <!-- Prepares the property pointing to the JaCoCo
                             runtime agent which is passed as VM argument when Maven the Surefire plugin
@@ -185,11 +238,17 @@
                     <plugin>
                         <groupId>org.eluder.coveralls</groupId>
                         <artifactId>coveralls-maven-plugin</artifactId>
-                        <version>4.3.0</version>
                     </plugin>
                 </plugins>
             </build>
         </profile>
     </profiles>
+
+    <scm>
+        <url>https://github.com/waryss/scrooge-api</url>
+        <connection>scm:git:git://github.com/waryss/scrooge-api.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/waryss/scrooge-api.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
 
 </project>
