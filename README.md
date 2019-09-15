@@ -1,5 +1,10 @@
 # scrooge-api
-Api that help to manage expenses
+
+[![Build Status](https://travis-ci.org/waryss/scrooge-api.svg?branch=master)](https://travis-ci.org/waryss/scrooge-api)
+[![Coverage Status](https://coveralls.io/repos/github/waryss/scrooge-api/badge.svg?branch=master)](https://coveralls.io/github/waryss/scrooge-api?branch=master)
+[![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
+
+This API expose services that help expenses management
 
 ## Getting Started
 This is a simple spring boot project 
