@@ -4,11 +4,14 @@
 [![Coverage Status](https://coveralls.io/repos/github/waryss/scrooge-api/badge.svg?branch=master)](https://coveralls.io/github/waryss/scrooge-api?branch=master)
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
+
 This API expose services that help expenses management. 
+
 It exposes simple CRUD services to manage
-* [domain]/users/* : This end point exposes services to manage API users
-* [domain]/expenses/* : This end point is the main part of the API. It exposes services that allow users to manage their budgets. It allows, among other things, to define the resources and to record the expenses
-* [domain]/attachments/* : This end point is used to upload expenses receipts. These receipts must me linked to an expense recorded in the "budget" service.
+* _**[domain]/users/***_ : This end point exposes services to manage API users
+* _**[domain]/expenses/***_ : This end point is the main part of the API. It exposes services that allow users to manage their budgets. It allows, among other things, to define the resources and to record the expenses
+* _**[domain]/attachments/***_ : This end point is used to upload expenses receipts. These receipts must me linked to an expense recorded in the "budget" service.
+
 
 ## Built With
 
