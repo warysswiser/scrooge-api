@@ -9,8 +9,9 @@ This API expose services that help expenses management.
 
 It exposes simple CRUD services to manage
 * _**[domain]/users/***_ : This end point exposes services to manage API users
-* _**[domain]/expenses/***_ : This end point is the main part of the API. It exposes services that allow users to manage their budgets. It allows, among other things, to define the resources and to record the expenses
+* _**[domain]/budgets/***_ : This end point is the main part of the API. It exposes services that allow users to manage their budgets. It allows, among other things, to define the resources and to record the expenses
 * _**[domain]/attachments/***_ : This end point is used to upload expenses receipts. These receipts must me linked to an expense recorded in the "budget" service.
+
 
 
 ## Built With
