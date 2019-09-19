@@ -4,6 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/waryss/scrooge-api/badge.svg?branch=master)](https://coveralls.io/github/waryss/scrooge-api?branch=master)
 ![tag](https://img.shields.io/github/v/tag/waryss/scrooge-api.svg)
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
+![Commit activity](https://img.shields.io/github/commit-activity/m/waryss/scrooge-api.svg)
 
 ##About
 Defining a budget, following it and sticking to it is not always easy. The scrooge API exposes some great services to help us do it a little easier.
