@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/waryss/scrooge-api.svg?branch=master)](https://travis-ci.org/waryss/scrooge-api)
 [![Coverage Status](https://coveralls.io/repos/github/waryss/scrooge-api/badge.svg?branch=master)](https://coveralls.io/github/waryss/scrooge-api?branch=master)
-![tag](https://d25lcipzij17d.cloudfront.net/badge.svg?id=gh&type=6&v=dev&x2=0)
+![tag](https://img.shields.io/github/v/tag/waryss/scrooge-api.svg)
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 ##About
