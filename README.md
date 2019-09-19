@@ -6,7 +6,8 @@
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Commit activity](https://img.shields.io/github/commit-activity/m/waryss/scrooge-api.svg)](https://github.com/waryss/scrooge-api/pulse)
 
-##About
+## About
+
 Defining a budget, following it and sticking to it is not always easy. The scrooge API exposes some great services to help us do it a little easier.
 
 Exposed services ([more](https://github.com/waryss/scrooge-api#documentation "more")):
