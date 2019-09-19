@@ -38,19 +38,19 @@ git@github.com:waryss/scrooge-api.git
 ```
 
 ### Installing
-```
+```shell
 cd ~/[workspace]
 mvn clean install
 ```
 
 ### Running the tests
-```
+```shell
 cd ~/[workspace]
 mvn test
 ```
 
 ### Running the application locally
-```
+```shell
 cd ~/[workspace]
 mvn spring-boot:run
 ```
