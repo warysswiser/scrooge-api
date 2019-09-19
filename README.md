@@ -29,7 +29,7 @@ Exposed services ([more](https://github.com/waryss/scrooge-api#documentation "mo
 
 ## Getting Started
 
-All you have to do is cloning the project, and open it to your favorite IDE :fa-smile-o:
+All you have to do is cloning the project, and open it with your favorite IDE :fa-smile-o:
 ```shell
 cd ~/[your_workspace]
 git clone https://github.com/waryss/scrooge-api.git
