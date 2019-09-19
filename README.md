@@ -4,14 +4,15 @@
 [![Coverage Status](https://coveralls.io/repos/github/waryss/scrooge-api/badge.svg?branch=master)](https://coveralls.io/github/waryss/scrooge-api?branch=master)
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
+##About
+Defining a budget, following it and sticking to it is not always easy. The scrooge API exposes some great services to help us do it a little easier.
 
-This API expose services that help expenses management. 
+Exposed services ([more](https://github.com/waryss/scrooge-api#documentation "more")):
+* _**[domain]/users/***_ : This end point exposes services to manage API users. It allows registration, authentication, profile modifications and parameters account management.
 
-It exposes simple CRUD services to manage
-* _**[domain]/users/***_ : This end point exposes services to manage API users
 * _**[domain]/budgets/***_ : This end point is the main part of the API. It exposes services that allow users to manage their budgets. It allows, among other things, to define the resources and to record the expenses
-* _**[domain]/attachments/***_ : This end point is used to upload expenses receipts. These receipts must me linked to an expense recorded in the "budget" service.
 
+* _**[domain]/attachments/***_ : This end point is used to upload expenses receipts. These receipts must me linked to an expense recorded in the "budget" service.
 
 
 ## Built With
@@ -25,11 +26,14 @@ It exposes simple CRUD services to manage
 
 ## Getting Started
 
-All you have to do is cloning the project, and open it to your favorite IDE :)
-```
-cd ~/[workspace]
+All you have to do is cloning the project, and open it to your favorite IDE :fa-smile-o:
+```shell
+cd ~/[your_workspace]
 git clone https://github.com/waryss/scrooge-api.git
+```
 or
+```shell
+cd ~/[your_workspace]
 git@github.com:waryss/scrooge-api.git
 ```
 
@@ -39,13 +43,13 @@ cd ~/[workspace]
 mvn clean install
 ```
 
-## Running the tests
+### Running the tests
 ```
 cd ~/[workspace]
 mvn test
 ```
 
-## Running the application locally
+### Running the application locally
 ```
 cd ~/[workspace]
 mvn spring-boot:run
