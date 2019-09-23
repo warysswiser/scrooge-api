@@ -58,4 +58,4 @@ cd ~/[workspace]
 mvn spring-boot:run
 ```
 ## Documentation
-* [Swagger](http://localhost:8089/swagger-ui.html#) - Documentation & Testing
+* [Swagger](https://scroogeapi.herokuapp.com/swagger-ui.html#) - Documentation & Testing (from staging)
