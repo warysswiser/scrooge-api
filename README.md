@@ -10,7 +10,7 @@
 
 Defining a budget, following it and sticking to it is not always easy. The scrooge API exposes some great services to help us do it a little easier.
 
-Exposed services ([more](https://github.com/waryss/scrooge-api#documentation "more")):
+Exposed services ([swagger](https://github.com/waryss/scrooge-api#documentation "more")):
 * _**[domain]/users/***_ : This end point exposes services to manage API users. It allows registration, authentication, profile modifications and parameters account management.
 
 * _**[domain]/budgets/***_ : This end point is the main part of the API. It exposes services that allow users to manage their budgets. It allows, among other things, to define the resources and to record the expenses
