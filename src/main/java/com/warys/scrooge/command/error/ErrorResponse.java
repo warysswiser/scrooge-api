@@ -1,40 +1,18 @@
 package com.warys.scrooge.command.error;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Date;
 
+@AllArgsConstructor
+@Getter
+@Setter
 public class ErrorResponse implements Serializable {
     private Date timestamp;
     private String message;
-    private String exception;
     private String path;
-
-    public ErrorResponse(Date timestamp, String message, String path, String exception) {
-        super();
-        this.timestamp = timestamp;
-        this.message = message;
-        this.exception = exception;
-        this.path = path;
-    }
-
-    public String getException() {
-        return exception;
-    }
-
-    public void setException(String exception) {
-        this.exception = exception;
-    }
-
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
+    private String exception;
 }

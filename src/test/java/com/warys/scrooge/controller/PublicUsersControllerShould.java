@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles(value = "test")
 public class PublicUsersControllerShould {
 
-    private static final String EMAIL = "my_email@domain";
+    private static final String EMAIL = "my_email@domain.com";
     private static final String PASSWORD = "my_password";
 
     private static final ObjectMapper om = new ObjectMapper();
@@ -93,7 +93,7 @@ public class PublicUsersControllerShould {
                         .content(om.writeValueAsString(request))
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isConflict())
-                .andExpect(jsonPath("$.message", is("User already exists for email : my_email@domain")))
+                .andExpect(jsonPath("$.message", is("User already exists for email : " + EMAIL)))
                 .andExpect(jsonPath("$.exception", is("DuplicatedInformationException")));
     }
 

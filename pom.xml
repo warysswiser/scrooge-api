@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.waryss</groupId>
-    <artifactId>scrooge</artifactId>
+    <artifactId>scrooge-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>scrooge</name>
+    <name>scrooge-api</name>
     <description>Demo project for Spring Boot</description>
 
     <parent>
@@ -44,6 +44,7 @@
         <activation.version>1.1.1</activation.version>
         <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
         <jaxb-api.version>2.3.1</jaxb-api.version>
+        <lombok.version>1.18.10</lombok.version>
     </properties>
 
     <dependencies>
@@ -105,6 +106,12 @@
             <artifactId>commons-beanutils</artifactId>
             <version>${commons-beanutils.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- ****************************************************************************** -->
         <!--  ************************ Swagger Dependencies ******************************  -->
@@ -117,6 +124,11 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-bean-validators</artifactId>
             <version>${springfox.version}</version>
         </dependency>
 

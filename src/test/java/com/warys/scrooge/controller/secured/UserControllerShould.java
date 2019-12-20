@@ -31,6 +31,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles(value = "test")
 public class UserControllerShould extends SecuredTest {
 
+    private static final String RESOURCE = "/me";
+
     @Before
     public void setUp() {
         init();
@@ -52,7 +54,7 @@ public class UserControllerShould extends SecuredTest {
     @Test
     public void get_me() throws Exception {
         this.mockMvc.perform(
-                get("/me")
+                get(RESOURCE)
                         .header("Authorization", "Bearer " + VALID_TOKEN)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isOk());
@@ -61,7 +63,7 @@ public class UserControllerShould extends SecuredTest {
     @Test
     public void return_Unauthorized_when_invalid_token_is_given() throws Exception {
         this.mockMvc.perform(
-                get("/me")
+                get(RESOURCE)
                         .header("Authorization", "Bearer " + "BAD" + VALID_TOKEN + "SOO BAD")
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isUnauthorized());
@@ -77,7 +79,7 @@ public class UserControllerShould extends SecuredTest {
         }).buildCommand();
 
         this.mockMvc.perform(
-                put("/me")
+                put(RESOURCE)
                         .header("Authorization", "Bearer " + VALID_TOKEN)
                         .content(om.writeValueAsString(request))
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
@@ -87,12 +89,10 @@ public class UserControllerShould extends SecuredTest {
 
     @Test
     public void partial_update_me() throws Exception {
-        UserCommand request = new UserBuilder().with(o -> {
-            o.username = "newnewname";
-        }).buildCommand();
+        UserCommand request = new UserBuilder().with(o -> o.username = "newnewname").buildCommand();
 
         this.mockMvc.perform(
-                patch("/me")
+                patch(RESOURCE)
                         .header("Authorization", "Bearer " + VALID_TOKEN)
                         .content(om.writeValueAsString(request))
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
@@ -107,7 +107,7 @@ public class UserControllerShould extends SecuredTest {
         PasswordCommand request = new PasswordCommand("newpassword@gmail.com");
 
         this.mockMvc.perform(
-                put("/me/password")
+                put(RESOURCE + "/password")
                         .header("Authorization", "Bearer " + VALID_TOKEN)
                         .content(om.writeValueAsString(request))
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
@@ -119,7 +119,7 @@ public class UserControllerShould extends SecuredTest {
         PasswordCommand request = new PasswordCommand("email");
 
         this.mockMvc.perform(
-                put("/me/password")
+                put(RESOURCE + "/password")
                         .header("Authorization", "Bearer " + VALID_TOKEN)
                         .content(om.writeValueAsString(request))
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))

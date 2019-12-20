@@ -11,7 +11,7 @@ public interface SessionUser extends UserDetails {
 
     void setId(String id);
 
-    void setAuthorities(Collection<? extends GrantedAuthority> authorities);
+    default void setAuthorities(Collection<? extends GrantedAuthority> authorities) {}
 
     void setAccountNonExpired(boolean accountNonExpired);
 

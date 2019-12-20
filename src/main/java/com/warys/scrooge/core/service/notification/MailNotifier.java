@@ -1,6 +1,7 @@
 package com.warys.scrooge.core.service.notification;
 
 import com.google.common.annotations.VisibleForTesting;
+import lombok.AllArgsConstructor;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,6 +9,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+@AllArgsConstructor
 @Service
 public class MailNotifier implements Notifier {
 

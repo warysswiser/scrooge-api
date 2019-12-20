@@ -6,6 +6,7 @@ import com.warys.scrooge.core.model.user.SessionUser;
 import com.warys.scrooge.infrastructure.exception.ApiException;
 import com.warys.scrooge.infrastructure.exception.business.InconsistentElementException;
 import com.warys.scrooge.infrastructure.exception.technical.TechnicalException;
+import lombok.AllArgsConstructor;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@AllArgsConstructor
 @Service
 public class AttachmentService implements CrudAttachmentService {
 
@@ -25,10 +27,6 @@ public class AttachmentService implements CrudAttachmentService {
 
     @Value("${app.attachments.directory}")
     private String uploadedFolder;
-
-    public AttachmentService(String uploadedFolder) {
-        this.uploadedFolder = uploadedFolder;
-    }
 
     public AttachmentService() {}
 
@@ -52,7 +50,8 @@ public class AttachmentService implements CrudAttachmentService {
                 Files.createDirectories(userDir);
             }
 
-            Path createdFile = Files.write(userDir.resolve(file.getOriginalFilename()), file.getBytes());
+            final Path destinationPath = userDir.resolve(Objects.requireNonNull(file.getOriginalFilename()));
+            Path createdFile = Files.write(destinationPath, file.getBytes());
             return new AttachmentBuilder()
                     .with(
                             o -> {

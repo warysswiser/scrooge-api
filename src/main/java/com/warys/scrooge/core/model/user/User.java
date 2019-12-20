@@ -21,9 +21,6 @@ public class User extends GenericModel implements SessionUser {
     private boolean credentialsNonExpired = true;
     private boolean enabled = true;
 
-    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
-    }
-
     public void setAccountNonExpired(boolean accountNonExpired) {
         this.accountNonExpired = accountNonExpired;
     }

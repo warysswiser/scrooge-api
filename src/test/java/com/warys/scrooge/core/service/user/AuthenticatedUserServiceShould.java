@@ -118,6 +118,10 @@ public class AuthenticatedUserServiceShould {
                     o.id = USER_ID;
                     o.email = "anemail@domain.com";
                     o.username = "oldUserName";
+                    o.accountNonExpired = true;
+                    o.accountNonLocked = true;
+                    o.credentialsNonExpired = true;
+                    o.enabled = true;
                 })
                 .build();
 
@@ -126,6 +130,10 @@ public class AuthenticatedUserServiceShould {
                     o.id = USER_ID;
                     o.email = "anemail@domain.com";
                     o.username = "newUserName";
+                    o.accountNonExpired = true;
+                    o.accountNonLocked = true;
+                    o.credentialsNonExpired = true;
+                    o.enabled = true;
                 })
                 .buildCommand();
 
@@ -134,6 +142,10 @@ public class AuthenticatedUserServiceShould {
                     o.id = USER_ID;
                     o.email = "anemail@domain.com";
                     o.username = "newUserName";
+                    o.accountNonExpired = true;
+                    o.accountNonLocked = true;
+                    o.credentialsNonExpired = true;
+                    o.enabled = true;
                 })
                 .build();
 
@@ -165,6 +177,10 @@ public class AuthenticatedUserServiceShould {
                     o.id = USER_ID;
                     o.email = "anemail@domain.com";
                     o.username = "newUserName";
+                    o.accountNonExpired = true;
+                    o.accountNonLocked = true;
+                    o.credentialsNonExpired = true;
+                    o.enabled = true;
                 })
                 .buildCommand();
 
@@ -173,6 +189,10 @@ public class AuthenticatedUserServiceShould {
                     o.id = USER_ID;
                     o.email = "anemail@domain.com";
                     o.username = "newUserName";
+                    o.accountNonExpired = true;
+                    o.accountNonLocked = true;
+                    o.credentialsNonExpired = true;
+                    o.enabled = true;
                 })
                 .build();
 

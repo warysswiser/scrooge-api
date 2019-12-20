@@ -10,7 +10,9 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
+import static java.util.List.of;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class BeanUtilShould {
@@ -56,19 +58,18 @@ public class BeanUtilShould {
                             o.ownerId = ORIG_OWNER_ID;
                             o.startDate = LocalDate.now().minusMonths(1);
                             o.endDate = LocalDate.now().plusMonths(1);
-                            o.plannedItems = new PlannedItems();
-                            o.realItems = new RealItems();
+                            o.budgetLines = of(new BudgetLine());
                             o.creationDate = NOW.minusMonths(1);
                             o.updateDate = NOW.plusWeeks(2);
                             o.deletionDate = null;
                         })
                 .build();
 
-        var dest = new BudgetBuilder().with(o -> o.realItems = new RealItems()).build();
+        var dest = new BudgetBuilder().with(o -> o.budgetLines = of(new BudgetLine())).build();
 
         BeanUtil.copyBean(orig, dest);
 
-        assertThat(dest).isEqualToComparingFieldByFieldRecursively(orig);
+        assertThat(dest).usingRecursiveComparison().isEqualTo(orig);
     }
 
 

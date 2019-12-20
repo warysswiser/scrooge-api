@@ -5,23 +5,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Set;
 
-@Document(collection = "real_items")
-public class RealItems extends GenericModel {
+@Document(collection = "budget_lines")
+public class BudgetLine extends GenericModel {
 
+    private String label;
     private String budgetId;
     private String ownerId;
+    private double projection;
+    private double real;
     private Set<Expense> expenses;
-    private Set<Resource> resources;
 
-    public RealItems(String id, String budgetId, String ownerId, Set<Expense> expenses, Set<Resource> resources) {
-        super(id);
-        this.budgetId = budgetId;
-        this.ownerId = ownerId;
-        this.expenses = expenses;
-        this.resources = resources;
-    }
-
-    public RealItems() {
+    public BudgetLine() {
 
     }
 
@@ -37,10 +31,6 @@ public class RealItems extends GenericModel {
         this.expenses = expenses;
     }
 
-    public void setResources(Set<Resource> resources) {
-        this.resources = resources;
-    }
-
     public String getBudgetId() {
         return budgetId;
     }
@@ -53,7 +43,27 @@ public class RealItems extends GenericModel {
         return expenses;
     }
 
-    public Set<Resource> getResources() {
-        return resources;
+    public double getProjection() {
+        return projection;
+    }
+
+    public void setProjection(double projection) {
+        this.projection = projection;
+    }
+
+    public double getReal() {
+        return real;
+    }
+
+    public void setReal(double real) {
+        this.real = real;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }

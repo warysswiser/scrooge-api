@@ -10,5 +10,5 @@ public interface BudgetRepository extends MongoRepository<Budget, String> {
 
     Optional<List<Budget>> findByOwnerId(String user);
 
-    Optional<Budget> findByIdAndOwnerId(String itemId, String id);
+    Optional<Budget> findByIdAndOwnerId(String budgetId, String userId);
 }
