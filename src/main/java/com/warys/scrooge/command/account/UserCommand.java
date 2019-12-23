@@ -42,4 +42,6 @@ public class UserCommand extends GenericModel implements SessionUser {
     public String getPassword() {
         return null;
     }
+
+    public void setPassword(String password) {}
 }
