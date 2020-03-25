@@ -29,7 +29,7 @@
         <project.build.sourceEncoding>${source.encoding}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${source.encoding}</project.reporting.outputEncoding>
 
-        <springframework.version>5.2.3.RELEASE</springframework.version>
+        <springframework.version>5.2.5.RELEASE</springframework.version>
         <springfox.version>2.9.2</springfox.version>
 
         <commons-lang3.version>3.9</commons-lang3.version>
