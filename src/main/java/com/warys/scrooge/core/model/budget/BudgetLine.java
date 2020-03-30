@@ -15,10 +15,6 @@ public class BudgetLine extends GenericModel {
     private double real;
     private Set<Expense> expenses;
 
-    public BudgetLine() {
-
-    }
-
     public void setBudgetId(String budgetId) {
         this.budgetId = budgetId;
     }

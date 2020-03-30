@@ -4,6 +4,7 @@ import com.warys.scrooge.core.model.budget.BudgetLine;
 import com.warys.scrooge.core.model.user.SessionUser;
 import com.warys.scrooge.core.service.budget.BudgetService;
 import com.warys.scrooge.infrastructure.exception.ApiException;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,15 +14,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/me/budgets/{budgetId}/lines")
 public final class BudgetLinesController {
 
     private final BudgetService budgetService;
-
-    BudgetLinesController(BudgetService budgetService) {
-        this.budgetService = budgetService;
-    }
 
     @GetMapping("")
     public ResponseEntity<List<BudgetLine>> getAllBudget(@AuthenticationPrincipal final SessionUser me, @PathVariable String budgetId) throws ApiException {
@@ -53,7 +51,7 @@ public final class BudgetLinesController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteBudgetLine
+    public ResponseEntity<BudgetLine> deleteBudgetLine
             (@AuthenticationPrincipal final SessionUser me, @NotNull @PathVariable String id, @PathVariable String budgetId) throws ApiException {
         budgetService.removeLine(me, id, budgetId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

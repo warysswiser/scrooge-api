@@ -4,6 +4,7 @@ import com.warys.scrooge.command.account.UserCommand;
 import com.warys.scrooge.core.model.budget.Attachment;
 import com.warys.scrooge.core.service.budget.attachement.AttachmentService;
 import com.warys.scrooge.infrastructure.exception.ApiException;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -12,16 +13,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/me/attachments")
 public final class AttachmentsController {
 
     private final AttachmentService attachmentService;
-
-    AttachmentsController(AttachmentService attachmentService) {
-        this.attachmentService = attachmentService;
-    }
-
 
     @PostMapping("")
     @ResponseBody

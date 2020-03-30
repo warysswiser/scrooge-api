@@ -9,7 +9,6 @@ import lombok.Setter;
 import javax.validation.constraints.NotEmpty;
 import java.io.File;
 
-@NoArgsConstructor
 @Getter
 @Setter
 public class Attachment extends GenericModel {
