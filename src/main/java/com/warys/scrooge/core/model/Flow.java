@@ -12,5 +12,6 @@ public class Flow extends GenericModel {
     private FlowCategory category;
     private String label;
     private double amount;
+    private String frequency;
 
 }
