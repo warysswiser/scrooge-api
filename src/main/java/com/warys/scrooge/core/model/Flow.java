@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Flow extends GenericModel {
 
     private String ownerId;
-    private FlowCategory category;
+    private String category;
     private String label;
     private double amount;
     private String frequency;
