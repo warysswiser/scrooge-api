@@ -1,34 +1,14 @@
 package com.warys.scrooge.controller.secured;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@AutoConfigureMockMvc
-@ActiveProfiles(value = "test")
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
+//@AutoConfigureMockMvc
+//@ActiveProfiles(value = "test")
 public class AttachmentsControllerShould extends SecuredTest {
 
+/*
     @Value("${app.attachments.directory}")
     private String uploadedFolder;
-
     @Before
     public void setUp() {
         super.init();
@@ -56,5 +36,5 @@ public class AttachmentsControllerShould extends SecuredTest {
 
         assertThat(Files.exists(filePath)).isTrue();
         Files.delete(filePath);
-    }
+    }*/
 }

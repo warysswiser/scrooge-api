@@ -1,16 +1,16 @@
 package com.warys.scrooge.core.model.budget;
 
 import com.warys.scrooge.core.model.GenericModel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.types.Binary;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotEmpty;
-import java.io.File;
 
 @Getter
 @Setter
+@Document(collection = "attachments")
 public class Attachment extends GenericModel {
 
     @NotEmpty
@@ -18,13 +18,11 @@ public class Attachment extends GenericModel {
     @NotEmpty
     private String fileType;
     @NotEmpty
-    private String uri;
+    private Binary content;
+    @NotEmpty
+    private String ownerId;
 
     public boolean hasBeenUploadedYet() {
-        if (getCreationDate() == null || getUri() == null) {
-            return false;
-        }
-        File file = new File(getUri());
-        return file.exists() && file.isFile();
+        return (getCreationDate() != null || getContent() != null);
     }
 }

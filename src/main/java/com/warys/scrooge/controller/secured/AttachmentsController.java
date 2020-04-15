@@ -1,8 +1,8 @@
 package com.warys.scrooge.controller.secured;
 
 import com.warys.scrooge.command.account.UserCommand;
-import com.warys.scrooge.core.model.budget.Attachment;
 import com.warys.scrooge.core.service.budget.attachement.AttachmentService;
+import com.warys.scrooge.core.service.budget.attachement.CrudAttachmentService;
 import com.warys.scrooge.infrastructure.exception.ApiException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,13 +18,13 @@ import javax.validation.constraints.NotNull;
 @RequestMapping("/me/attachments")
 public final class AttachmentsController {
 
-    private final AttachmentService attachmentService;
+    private final CrudAttachmentService attachmentService;
 
     @PostMapping("")
     @ResponseBody
-    public ResponseEntity<Attachment> postAttachment(
+    public ResponseEntity<String> postAttachment(
             @AuthenticationPrincipal final UserCommand me, @NotNull @RequestParam("file") MultipartFile file) throws ApiException {
-        Attachment attachment = attachmentService.create(me, file);
-        return new ResponseEntity<>(attachment, HttpStatus.CREATED);
+        String attachmentId = attachmentService.createAttachment(me, file);
+        return new ResponseEntity<>(attachmentId, HttpStatus.CREATED);
     }
 }

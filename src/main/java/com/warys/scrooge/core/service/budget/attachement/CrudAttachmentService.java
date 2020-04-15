@@ -23,6 +23,10 @@ public interface CrudAttachmentService extends MyCrudService<MultipartFile, Atta
         throw new UnsupportedOperationException();
     }
 
+    default String createAttachment(SessionUser me, MultipartFile payload) throws TechnicalException {
+        throw new UnsupportedOperationException();
+    }
+
     @Override
     default void remove(SessionUser me, String itemId) {
         throw new UnsupportedOperationException();

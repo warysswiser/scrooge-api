@@ -1,6 +1,7 @@
 package com.warys.scrooge.core.model.builder;
 
 import com.warys.scrooge.core.model.budget.Attachment;
+import org.bson.types.Binary;
 
 import java.time.LocalDateTime;
 import java.util.function.Consumer;
@@ -8,7 +9,8 @@ import java.util.function.Consumer;
 public final class AttachmentBuilder implements ModelBuilder<AttachmentBuilder, Attachment> {
     public String filename;
     public String fileType;
-    public String uri;
+    public String ownerId;
+    public Binary content;
     public LocalDateTime creationDate;
 
     public AttachmentBuilder with(Consumer<AttachmentBuilder> builderFunction) {
@@ -20,7 +22,8 @@ public final class AttachmentBuilder implements ModelBuilder<AttachmentBuilder, 
         Attachment attachment = new Attachment();
         attachment.setFilename(filename);
         attachment.setFileType(fileType);
-        attachment.setUri(uri);
+        attachment.setOwnerId(ownerId);
+        attachment.setContent(content);
         attachment.setCreationDate(creationDate);
         return attachment;
     }
