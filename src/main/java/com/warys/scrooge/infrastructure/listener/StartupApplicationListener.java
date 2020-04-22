@@ -15,7 +15,7 @@ import java.util.Map;
 public class StartupApplicationListener implements ApplicationListener<ApplicationReadyEvent> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StartupApplicationListener.class);
-    public static final String DESTINATION_FILE = "./main/resources/credentials.json";
+    public static final String DESTINATION_FILE = "./src/main/resources/credentials.json";
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
