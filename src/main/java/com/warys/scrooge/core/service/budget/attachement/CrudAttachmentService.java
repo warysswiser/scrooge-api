@@ -1,5 +1,6 @@
 package com.warys.scrooge.core.service.budget.attachement;
 
+import com.warys.scrooge.core.model.ImageTextDetection;
 import com.warys.scrooge.core.model.budget.Attachment;
 import com.warys.scrooge.core.model.user.SessionUser;
 import com.warys.scrooge.core.service.MyCrudService;
@@ -46,4 +47,6 @@ public interface CrudAttachmentService extends MyCrudService<MultipartFile, Atta
     default List<Attachment> getAll(SessionUser me) {
         throw new UnsupportedOperationException();
     }
+
+    List<ImageTextDetection> detectText(SessionUser me, MultipartFile file) throws TechnicalException;
 }
