@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TesseractClientShould {
 
-    /*
     @Test
     void extract_data() throws TesseractException {
         final TesseractClient client = getTesseractClient();
@@ -52,11 +51,11 @@ public class TesseractClientShould {
         ITesseract tesseract = new Tesseract();
         tesseract.setLanguage("fra");
         tesseract.setDatapath("src/main/resources/tessdata");
-        nu.pattern.OpenCV.loadLocally();
+        //nu.pattern.OpenCV.loadLocally();
 
 
         final TesseractClient client = new TesseractClient();
         ReflectionTestUtils.setField(client, "tesseract", tesseract);
         return client;
-    }*/
+    }
 }
