@@ -2,7 +2,6 @@ package com.warys.scrooge.infrastructure.config;
 
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
-import nu.pattern.OpenCV;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -58,13 +57,7 @@ public class AppConfig {
 
         tesseract.setDatapath(Path.of(dataPath).toAbsolutePath().toString());
         tesseract.setLanguage(defaultLanguage);
-
-        String OS = System.getProperty("os.name").toLowerCase();
-        if (OS.contains("linux") || (OS.contains("mac") && OS.indexOf("os") > 0)) {
-            OpenCV.loadLocally();
-        } else {
-            OpenCV.loadShared();
-        }
+        nu.pattern.OpenCV.loadShared();
 
         return tesseract;
     }
