@@ -20,7 +20,7 @@ import java.io.File;
 public class AppConfig {
 
     @Value("${app.ocr.data.path}")
-    private String datapath;
+    private String dataPath;
     @Value("${app.ocr.default.language}")
     private String defaultLanguage;
 
@@ -51,14 +51,14 @@ public class AppConfig {
         };
     }
 
-    @Bean
+   /* @Bean
     public ITesseract tesseract() {
         ITesseract tesseract = new Tesseract();
 
-        tesseract.setDatapath(new File(datapath).getPath());
+        tesseract.setDatapath(new File(dataPath).getPath());
         tesseract.setLanguage(defaultLanguage);
         nu.pattern.OpenCV.loadLocally();
 
         return tesseract;
-    }
+    }*/
 }
