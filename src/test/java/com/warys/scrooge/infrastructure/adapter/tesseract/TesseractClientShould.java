@@ -6,6 +6,7 @@ import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
 import org.junit.jupiter.api.Test;
 import org.opencv.core.CvException;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -30,7 +31,8 @@ public class TesseractClientShould {
     void should_throw_Error_when_tesseract_is_not_well_initializes() {
         ITesseract tesseract = new Tesseract();
         assertThrows(Error.class, () -> {
-            final TesseractClient client = new TesseractClient(tesseract);
+            final TesseractClient client = new TesseractClient();
+            ReflectionTestUtils.setField(client, "tesseract", tesseract);
             final File file = Path.of("src/test/resources/test9.jpg").toAbsolutePath().toFile();
             client.extract(file);
         });
@@ -51,6 +53,9 @@ public class TesseractClientShould {
         tesseract.setDatapath("src/main/resources/tessdata");
         nu.pattern.OpenCV.loadLocally();
 
-        return new TesseractClient(tesseract);
+
+        final TesseractClient client = new TesseractClient();
+        ReflectionTestUtils.setField(client, "tesseract", tesseract);
+        return client;
     }
 }
