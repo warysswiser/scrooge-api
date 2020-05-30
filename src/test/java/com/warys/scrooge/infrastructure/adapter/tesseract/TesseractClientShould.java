@@ -51,7 +51,7 @@ public class TesseractClientShould {
         ITesseract tesseract = new Tesseract();
         tesseract.setLanguage("fra");
         tesseract.setDatapath("src/main/resources/tessdata");
-        nu.pattern.OpenCV.loadShared();
+        nu.pattern.OpenCV.loadLocally();
 
 
         final TesseractClient client = new TesseractClient();
