@@ -11,10 +11,10 @@ import java.io.File;
 @Service
 public class TesseractClient implements OCRClient {
 
-    private ITesseract delegate;
+    private final ITesseract delegate;
 
-    public TesseractClient() {
-        //this.delegate = delegate;
+    public TesseractClient(ITesseract delegate) {
+        this.delegate = delegate;
     }
 
     @Override

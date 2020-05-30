@@ -5,7 +5,7 @@ sudo: false
 # trusty is required for oraclejdk9
 dist: trusty
 
-jdk: openjdk11
+jdk: openjdk14
 
 after_success:
   - mvn jacoco:report coveralls:report

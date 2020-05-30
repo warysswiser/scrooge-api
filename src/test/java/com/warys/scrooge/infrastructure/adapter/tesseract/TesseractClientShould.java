@@ -31,8 +31,7 @@ public class TesseractClientShould {
     void throw_Error_when_tesseract_is_not_well_initializes() {
         ITesseract tesseract = new Tesseract();
         assertThrows(Error.class, () -> {
-            final TesseractClient client = new TesseractClient();
-            ReflectionTestUtils.setField(client, "tesseract", tesseract);
+            final TesseractClient client = new TesseractClient(tesseract);
             final File file = Path.of("src/test/resources/test9.jpg").toAbsolutePath().toFile();
             client.extract(file);
         });
@@ -53,9 +52,6 @@ public class TesseractClientShould {
         tesseract.setDatapath("src/main/resources/tessdata");
         nu.pattern.OpenCV.loadLocally();
 
-
-        final TesseractClient client = new TesseractClient();
-        ReflectionTestUtils.setField(client, "tesseract", tesseract);
-        return client;
+        return new TesseractClient(tesseract);
     }
 }
