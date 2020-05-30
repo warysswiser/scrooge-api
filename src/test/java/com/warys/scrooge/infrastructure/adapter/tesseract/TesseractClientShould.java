@@ -28,7 +28,7 @@ public class TesseractClientShould {
 
 
     @Test
-    void should_throw_Error_when_tesseract_is_not_well_initializes() {
+    void throw_Error_when_tesseract_is_not_well_initializes() {
         ITesseract tesseract = new Tesseract();
         assertThrows(Error.class, () -> {
             final TesseractClient client = new TesseractClient();
@@ -39,7 +39,7 @@ public class TesseractClientShould {
     }
 
     @Test
-    void should_throw_CvException_when_input_file_does_not_exists() {
+    void throw_CvException_when_input_file_does_not_exists() {
         assertThrows(CvException.class, () -> {
             final TesseractClient client = getTesseractClient();
             final File file = Path.of("src/test/resources/bad.jpg").toAbsolutePath().toFile();
@@ -51,7 +51,7 @@ public class TesseractClientShould {
         ITesseract tesseract = new Tesseract();
         tesseract.setLanguage("fra");
         tesseract.setDatapath("src/main/resources/tessdata");
-        //nu.pattern.OpenCV.loadLocally();
+        nu.pattern.OpenCV.loadLocally();
 
 
         final TesseractClient client = new TesseractClient();
