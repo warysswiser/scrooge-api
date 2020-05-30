@@ -51,7 +51,7 @@ public class AppConfig {
         };
     }
 
-   /* @Bean
+    @Bean
     public ITesseract tesseract() {
         ITesseract tesseract = new Tesseract();
 
@@ -60,5 +60,5 @@ public class AppConfig {
         nu.pattern.OpenCV.loadLocally();
 
         return tesseract;
-    }*/
+    }
 }
