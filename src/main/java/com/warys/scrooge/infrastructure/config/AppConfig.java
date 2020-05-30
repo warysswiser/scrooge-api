@@ -1,5 +1,8 @@
 package com.warys.scrooge.infrastructure.config;
 
+import net.sourceforge.tess4j.ITesseract;
+import net.sourceforge.tess4j.Tesseract;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
@@ -10,9 +13,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import java.io.File;
+
 @Configuration
 @EnableMongoAuditing
 public class AppConfig {
+
+    @Value("${app.ocr.data.path}")
+    private String datapath;
+    @Value("${app.ocr.default.language}")
+    private String defaultLanguage;
+
     @Bean
     public InternalResourceViewResolver resolver() {
         var resolver = new InternalResourceViewResolver();
@@ -38,5 +49,16 @@ public class AppConfig {
                         .allowedMethods("*");
             }
         };
+    }
+
+    @Bean
+    public ITesseract tesseract() {
+        ITesseract tesseract = new Tesseract();
+
+        tesseract.setDatapath(new File(datapath).getPath());
+        tesseract.setLanguage(defaultLanguage);
+        nu.pattern.OpenCV.loadLocally();
+
+        return tesseract;
     }
 }

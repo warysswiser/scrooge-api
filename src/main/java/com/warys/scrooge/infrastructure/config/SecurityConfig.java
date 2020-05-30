@@ -1,7 +1,7 @@
 package com.warys.scrooge.infrastructure.config;
 
-import com.warys.scrooge.infrastructure.filter.TokenAuthenticationFilter;
-import com.warys.scrooge.infrastructure.provider.TokenAuthenticationProvider;
+import com.warys.scrooge.application.rest.auth.filter.TokenAuthenticationFilter;
+import com.warys.scrooge.application.rest.auth.provider.TokenAuthenticationProvider;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

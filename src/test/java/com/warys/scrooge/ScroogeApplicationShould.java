@@ -1,9 +1,8 @@
 package com.warys.scrooge;
 
-import com.warys.scrooge.controller.PublicUsersController;
-import com.warys.scrooge.controller.secured.AttachmentsController;
-import com.warys.scrooge.controller.secured.BudgetsController;
-import com.warys.scrooge.controller.secured.UserController;
+import com.warys.scrooge.application.rest.PublicUsersController;
+import com.warys.scrooge.application.rest.secured.AttachmentsController;
+import com.warys.scrooge.application.rest.secured.UserController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +20,12 @@ public class ScroogeApplicationShould {
     @Autowired
     private AttachmentsController attachmentsController;
     @Autowired
-    private BudgetsController budgetsController;
-    @Autowired
     private UserController userController;
 
     @Test
     public void load_context() {
         assertThat(publicUsersController).isNotNull();
         assertThat(attachmentsController).isNotNull();
-        assertThat(budgetsController).isNotNull();
         assertThat(userController).isNotNull();
     }
 
