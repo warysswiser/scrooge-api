@@ -51,8 +51,9 @@ public class AppConfig {
         };
     }
 
-    /*@Bean
+    @Bean
     public ITesseract tesseract() {
+        nu.pattern.OpenCV.loadLocally();
         ITesseract tesseract = new Tesseract();
 
         tesseract.setDatapath(Path.of(dataPath).toAbsolutePath().toString());
@@ -60,5 +61,5 @@ public class AppConfig {
         nu.pattern.OpenCV.loadLocally();
 
         return tesseract;
-    }*/
+    }
 }
