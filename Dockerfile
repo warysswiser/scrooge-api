@@ -1,7 +1,7 @@
 # Docker multi-stage build
 
-# 1. Building the App with Maven and java 14
-FROM maven:3-jdk-14
+# 1. Building the App with Maven and java 11
+FROM maven:3-jdk-11
 
 ADD . /scrooge-api
 WORKDIR /scrooge-api
@@ -14,7 +14,7 @@ RUN mvn clean install
 
 
 # 2. Just using the build artifact and then removing the build-container
-FROM openjdk:14-jdk
+FROM openjdk:11-jdk
 
 VOLUME /tmp
 
