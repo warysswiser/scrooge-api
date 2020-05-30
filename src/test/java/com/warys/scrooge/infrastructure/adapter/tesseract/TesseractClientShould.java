@@ -4,9 +4,9 @@ import com.warys.scrooge.domain.model.ocr.Receipt;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
+import nu.pattern.OpenCV;
 import org.junit.jupiter.api.Test;
 import org.opencv.core.CvException;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -51,7 +51,13 @@ public class TesseractClientShould {
         ITesseract tesseract = new Tesseract();
         tesseract.setLanguage("fra");
         tesseract.setDatapath("src/main/resources/tessdata");
-        nu.pattern.OpenCV.loadLocally();
+
+        String OS = System.getProperty("os.name").toLowerCase();
+        if (OS.contains("linux") || (OS.contains("mac") && OS.indexOf("os") > 0)) {
+            OpenCV.loadLocally();
+        } else {
+            OpenCV.loadShared();
+        }
 
 
         final TesseractClient client = new TesseractClient(tesseract);
