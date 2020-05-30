@@ -55,9 +55,7 @@ public class AppConfig {
     public ITesseract tesseract() {
         ITesseract tesseract = new Tesseract();
 
-        final String datapath = Path.of(dataPath).toAbsolutePath().toString();
-        System.out.println(datapath);
-        tesseract.setDatapath(datapath);
+        tesseract.setDatapath(Path.of(dataPath).toAbsolutePath().toString());
         tesseract.setLanguage(defaultLanguage);
         nu.pattern.OpenCV.loadLocally();
 
