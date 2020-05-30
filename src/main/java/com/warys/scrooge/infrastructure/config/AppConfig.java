@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-import java.io.File;
+import java.nio.file.Path;
 
 @Configuration
 @EnableMongoAuditing
@@ -55,7 +55,7 @@ public class AppConfig {
     public ITesseract tesseract() {
         ITesseract tesseract = new Tesseract();
 
-        tesseract.setDatapath(new File(dataPath).getPath());
+        tesseract.setDatapath(Path.of(dataPath).toAbsolutePath().toString());
         tesseract.setLanguage(defaultLanguage);
         nu.pattern.OpenCV.loadLocally();
 
