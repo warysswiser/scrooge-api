@@ -55,8 +55,8 @@ class OutflowControllerShould extends SecuredTest {
         when(outflowRepository.findByOwnerId(USER_ID)).thenReturn(Optional.of(List.of(INFLOW)));
         when(outflowRepository.findByIdAndOwnerId(INFLOW_ID, USER_ID)).thenReturn(Optional.of(INFLOW));
 
-        when(outflowRepository.insert(any(OutflowDocument.class))).thenAnswer(i -> i.getArguments()[0]);
-        when(outflowRepository.save(any(OutflowDocument.class))).thenAnswer(i -> i.getArguments()[0]);
+        when(outflowRepository.insert(any(OutflowDocument.class))).thenAnswer(i -> i.getArgument(0));
+        when(outflowRepository.save(any(OutflowDocument.class))).thenAnswer(i -> i.getArgument(0));
     }
 
 

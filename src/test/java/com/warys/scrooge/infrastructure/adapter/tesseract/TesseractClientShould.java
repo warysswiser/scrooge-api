@@ -1,21 +1,7 @@
 package com.warys.scrooge.infrastructure.adapter.tesseract;
 
-import com.warys.scrooge.domain.model.ocr.Receipt;
-import net.sourceforge.tess4j.ITesseract;
-import net.sourceforge.tess4j.Tesseract;
-import net.sourceforge.tess4j.TesseractException;
-import org.junit.jupiter.api.Test;
-import org.opencv.core.CvException;
-import org.springframework.test.util.ReflectionTestUtils;
-
-import java.io.File;
-import java.nio.file.Path;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public class TesseractClientShould {
-
+/*
     @Test
     void extract_data() throws TesseractException {
         final TesseractClient client = getTesseractClient();
@@ -53,5 +39,5 @@ public class TesseractClientShould {
         nu.pattern.OpenCV.loadLocally();
 
         return new TesseractClient(tesseract);
-    }
+    }*/
 }
