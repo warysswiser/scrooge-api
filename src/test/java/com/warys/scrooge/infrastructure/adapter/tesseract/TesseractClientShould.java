@@ -1,12 +1,25 @@
 package com.warys.scrooge.infrastructure.adapter.tesseract;
 
-public class TesseractClientShould {
+import com.warys.scrooge.domain.model.ocr.Receipt;
+import net.sourceforge.tess4j.ITesseract;
+import net.sourceforge.tess4j.Tesseract;
+import net.sourceforge.tess4j.TesseractException;
+import org.junit.jupiter.api.Test;
+import org.opencv.core.CvException;
+
+import java.io.File;
+import java.nio.file.Path;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+class TesseractClientShould {
 /*
     @Test
     void extract_data() throws TesseractException {
         final TesseractClient client = getTesseractClient();
         final File file = Path.of("src/test/resources/test9.jpg").toAbsolutePath().toFile();
-        final Receipt expectedOcrData = client.extract(file);
+        final Receipt expectedOcrData = client.extractReceipt(file);
         assertThat(expectedOcrData).isNotNull();
         assertThat(expectedOcrData).hasNoNullFieldsOrProperties();
         assertThat(Path.of("./processed_image.png").toAbsolutePath().toFile().delete()).isTrue();
@@ -19,7 +32,7 @@ public class TesseractClientShould {
         assertThrows(Error.class, () -> {
             final TesseractClient client = new TesseractClient(tesseract);
             final File file = Path.of("src/test/resources/test9.jpg").toAbsolutePath().toFile();
-            client.extract(file);
+            client.extractReceipt(file);
         });
     }
 
@@ -28,7 +41,7 @@ public class TesseractClientShould {
         assertThrows(CvException.class, () -> {
             final TesseractClient client = getTesseractClient();
             final File file = Path.of("src/test/resources/bad.jpg").toAbsolutePath().toFile();
-            client.extract(file);
+            client.extractReceipt(file);
         });
     }
 
@@ -39,5 +52,6 @@ public class TesseractClientShould {
         nu.pattern.OpenCV.loadLocally();
 
         return new TesseractClient(tesseract);
-    }*/
+    }
+ */
 }

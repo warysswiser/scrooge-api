@@ -8,5 +8,5 @@ import java.io.File;
 
 public interface OCRClient {
 
-    Receipt extract(File source) throws TechnicalException, TesseractException;
+    Receipt extractReceipt(File source) throws TechnicalException, TesseractException;
 }

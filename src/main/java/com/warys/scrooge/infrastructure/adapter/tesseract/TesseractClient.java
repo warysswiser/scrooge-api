@@ -3,7 +3,6 @@ package com.warys.scrooge.infrastructure.adapter.tesseract;
 import com.warys.scrooge.domain.model.ocr.Receipt;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.TesseractException;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -18,9 +17,11 @@ public class TesseractClient implements OCRClient {
     }
 
     @Override
-    public Receipt extract(File source) throws TesseractException {
+    public Receipt extractReceipt(File source) throws TesseractException {
         final File image = ImagePreProcessing.execute(source);
         final String rawData = delegate.doOCR(image);
-        return Receipt.fromRawData(rawData);
+        final Receipt receipt = Receipt.fromRawData(rawData);
+        source.delete();
+        return receipt;
     }
 }

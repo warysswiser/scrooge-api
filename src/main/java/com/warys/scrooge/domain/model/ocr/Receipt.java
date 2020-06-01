@@ -32,7 +32,6 @@ public class Receipt {
 
         final List<String> collect = rawData.lines().collect(Collectors.toList());
         AtomicReference<String> prev = new AtomicReference<>();
-        System.out.println(rawData);
 
         collect.forEach(x -> {
             String date = null, hour = "00:00";
@@ -46,7 +45,6 @@ public class Receipt {
                 hour = hourMatcher.group();
             }
 
-            System.out.println(date + " " + hour);
             if (date != null) {
                 String str = date + " " + hour;
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
