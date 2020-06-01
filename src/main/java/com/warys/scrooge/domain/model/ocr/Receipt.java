@@ -1,7 +1,9 @@
 package com.warys.scrooge.domain.model.ocr;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -11,8 +13,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-@Data
-public class Receipt {
+@Getter
+@Setter
+public class Receipt implements Serializable {
 
     private static Pattern DATE_PATTERN = Pattern.compile("\\d{2}(-|\\/)\\d{2}(-|\\/)\\d{2}");
     private static Pattern HOUR_PATTERN = Pattern.compile("\\d{2}(:)\\d{2}");

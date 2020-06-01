@@ -53,11 +53,12 @@ public class AppConfig {
 
     @Bean
     public ITesseract tesseract() {
+        nu.pattern.OpenCV.loadLocally();
+
         ITesseract tesseract = new Tesseract();
 
         tesseract.setDatapath(Path.of(dataPath).toAbsolutePath().toString());
         tesseract.setLanguage(defaultLanguage);
-        //nu.pattern.OpenCV.loadLocally();
 
         return tesseract;
     }
