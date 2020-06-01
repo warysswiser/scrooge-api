@@ -1,5 +1,6 @@
 package com.warys.scrooge.application.rest.secured;
 
+import com.warys.scrooge.domain.model.ocr.Receipt;
 import com.warys.scrooge.domain.model.user.User;
 import com.warys.scrooge.domain.service.budget.attachement.OcrService;
 import com.warys.scrooge.infrastructure.exception.technical.TechnicalException;
@@ -19,15 +20,11 @@ public final class OcrController {
 
     private final OcrService ocrService;
 
-    public OcrController(OcrService ocrService) {
-        this.ocrService = ocrService;
-    }
-
     @PostMapping("receipt")
     @ResponseBody
-    public ResponseEntity<String> getReceiptFromImage(
+    public ResponseEntity<Receipt> getReceiptFromImage(
             @AuthenticationPrincipal final User me, @NotNull @RequestParam("file") MultipartFile file) throws TechnicalException {
-        String attachmentId = ocrService.getReceipt(me, file);
+        Receipt attachmentId = ocrService.getReceipt(me, file);
         return new ResponseEntity<>(attachmentId, HttpStatus.CREATED);
     }
 
