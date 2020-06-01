@@ -1,23 +1,24 @@
 package com.warys.scrooge.domain.service.user;
 
 import com.warys.scrooge.application.command.response.LoginResponse;
-import com.warys.scrooge.domain.model.user.User;
+import com.warys.scrooge.domain.exception.auth.InvalidCredentialsException;
 import com.warys.scrooge.domain.model.builder.UserBuilder;
-import com.warys.scrooge.infrastructure.repository.mongo.entity.UserDocument;
-import com.warys.scrooge.infrastructure.repository.mongo.UserRepository;
+import com.warys.scrooge.domain.model.user.User;
 import com.warys.scrooge.infrastructure.adapter.notifier.Notifier;
 import com.warys.scrooge.infrastructure.exception.ApiException;
-import com.warys.scrooge.domain.exception.auth.InvalidCredentialsException;
-import org.junit.Test;
+import com.warys.scrooge.infrastructure.repository.mongo.UserRepository;
+import com.warys.scrooge.infrastructure.repository.mongo.entity.UserDocument;
+import org.junit.jupiter.api.Test;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.*;
 
-public class UserAuthenticationServiceShould {
+class UserAuthenticationServiceShould {
 
     private static final String VALID_EMAIL = "email";
     private static final String VALID_PASSWORD = "password";
@@ -42,7 +43,7 @@ public class UserAuthenticationServiceShould {
     ).build();
 
     @Test
-    public void login() throws ApiException {
+    void login() throws ApiException {
 
         when(userService.getUserByCredentials(VALID_EMAIL, VALID_PASSWORD)).thenReturn(new UserBuilder().with(o -> {
             o.id = VALID_ID;
@@ -58,15 +59,17 @@ public class UserAuthenticationServiceShould {
         assertThat(login.getToken()).isNotNull();
     }
 
-    @Test(expected = InvalidCredentialsException.class)
-    public void throw_InvalidCredentialsException_when_login_with_invalid_credentials() throws ApiException {
+    @Test
+    void throw_InvalidCredentialsException_when_login_with_invalid_credentials() throws ApiException {
         when(userService.getUserByCredentials(anyString(), anyString())).thenThrow(InvalidCredentialsException.class);
 
-        tested.login("invalid_email", "valid_password");
+        assertThatExceptionOfType(InvalidCredentialsException.class)
+                .isThrownBy(() ->
+                        tested.login("invalid_email", "valid_password"));
     }
 
     @Test
-    public void register() throws ApiException {
+    void register() throws ApiException {
 
         when(userRepository.insert(any(UserDocument.class))).thenReturn(VALID_USER);
 
@@ -77,7 +80,7 @@ public class UserAuthenticationServiceShould {
     }
 
     @Test
-    public void find_by_token() {
+    void find_by_token() {
         when(userRepository.findById(VALID_ID)).thenReturn(Optional.of(VALID_USER));
 
         final User userCommand = tested.findByToken(VALID_TOKEN).orElseThrow();
@@ -87,14 +90,14 @@ public class UserAuthenticationServiceShould {
     }
 
     @Test
-    public void return_empty_user_when_invalid_token_is_given() {
+    void return_empty_user_when_invalid_token_is_given() {
         Optional<User> userCommand = tested.findByToken("invalid_token");
 
         assertThat(userCommand).isEmpty();
     }
 
     @Test
-    public void return_null_when_load_user_by_username() {
+    void return_null_when_load_user_by_username() {
         final UserDetails any = tested.loadUserByUsername("any");
 
         assertThat(any).isNull();

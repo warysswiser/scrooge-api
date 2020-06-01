@@ -1,21 +1,22 @@
 package com.warys.scrooge.domain.common.validator;
 
-import com.warys.scrooge.domain.model.user.User;
 import com.warys.scrooge.domain.model.builder.UserBuilder;
-import org.junit.Test;
+import com.warys.scrooge.domain.model.user.User;
+import org.junit.jupiter.api.Test;
 
 import javax.validation.ValidationException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-public class UserValidatorShould {
+class UserValidatorShould {
 
     private static final String USER_ID = "userId";
     private static final String VALID_USERNAME = "validusername";
     private static final String VALID_EMAIL = "validemail@goo.com";
 
     @Test
-    public void validate_user_command_when_all_is_valid() {
+    void validate_user_command_when_all_is_valid() {
         User tom = new UserBuilder().with(
                 o -> {
                     o.id = USER_ID;
@@ -30,8 +31,8 @@ public class UserValidatorShould {
         assertThat(userCommand).isEqualTo(tom);
     }
 
-    @Test(expected = ValidationException.class)
-    public void throw_ValidationException_when_email_is_not_valid() {
+    @Test
+    void throw_ValidationException_when_email_is_not_valid() {
         User tom = new UserBuilder().with(
                 o -> {
                     o.id = USER_ID;
@@ -39,12 +40,12 @@ public class UserValidatorShould {
                     o.email = "avalidemailgoo.com";
                 }
         ).buildCommand();
-
-        UserValidator.of(tom).validateForUpdate();
+        assertThatExceptionOfType(ValidationException.class)
+                .isThrownBy(() -> UserValidator.of(tom).validateForUpdate());
     }
 
-    @Test(expected = ValidationException.class)
-    public void throw_ValidationException_when_username_is_not_valid() {
+    @Test
+    void throw_ValidationException_when_username_is_not_valid() {
         User tom = new UserBuilder().with(
                 o -> {
                     o.id = USER_ID;
@@ -52,7 +53,7 @@ public class UserValidatorShould {
                     o.email = VALID_EMAIL;
                 }
         ).buildCommand();
-
-        UserValidator.of(tom).validateForUpdate();
+        assertThatExceptionOfType(ValidationException.class)
+                .isThrownBy(() -> UserValidator.of(tom).validateForUpdate());
     }
 }

@@ -3,17 +3,17 @@ package com.warys.scrooge;
 import com.warys.scrooge.application.rest.PublicUsersController;
 import com.warys.scrooge.application.rest.secured.AttachmentsController;
 import com.warys.scrooge.application.rest.secured.UserController;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class ScroogeApplicationShould {
+class ScroogeApplicationShould {
 
     @Autowired
     private PublicUsersController publicUsersController;
@@ -23,14 +23,14 @@ public class ScroogeApplicationShould {
     private UserController userController;
 
     @Test
-    public void load_context() {
+    void load_context() {
         assertThat(publicUsersController).isNotNull();
         assertThat(attachmentsController).isNotNull();
         assertThat(userController).isNotNull();
     }
 
     @Test
-    public void launch_main() {
+    void launch_main() {
         ScroogeApplication.main(new String[]{});
     }
 

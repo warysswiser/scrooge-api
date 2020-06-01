@@ -2,13 +2,13 @@ package com.warys.scrooge.application.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.warys.scrooge.application.command.request.LoginRequest;
-import com.warys.scrooge.domain.model.user.User;
 import com.warys.scrooge.domain.model.builder.UserBuilder;
-import com.warys.scrooge.infrastructure.repository.mongo.entity.UserDocument;
+import com.warys.scrooge.domain.model.user.User;
 import com.warys.scrooge.infrastructure.repository.mongo.UserRepository;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import com.warys.scrooge.infrastructure.repository.mongo.entity.UserDocument;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Optional;
@@ -30,11 +30,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles(value = "test")
-public class PublicUsersControllerShould {
+class PublicUsersControllerShould {
 
     private static final String EMAIL = "my_email@domain.com";
     private static final String PASSWORD = "my_password";
@@ -49,8 +49,8 @@ public class PublicUsersControllerShould {
     @Autowired
     private MockMvc mockMvc;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         UserDocument user = new UserBuilder().with(o -> {
             o.id = USER_ID;
             o.email = EMAIL;
@@ -66,7 +66,7 @@ public class PublicUsersControllerShould {
     }
 
     @Test
-    public void perform_login() throws Exception {
+    void perform_login() throws Exception {
         this.mockMvc.perform(
                 post("/public/login")
                         .content(om.writeValueAsString(new LoginRequest(EMAIL, PASSWORD)))
@@ -80,7 +80,7 @@ public class PublicUsersControllerShould {
 
 
     @Test
-    public void return_conflict_response_when_perform_register_with_know_email() throws Exception {
+    void return_conflict_response_when_perform_register_with_know_email() throws Exception {
         User request = new UserBuilder().with(o -> {
             o.id = USER_ID;
             o.email = EMAIL;
@@ -99,7 +99,7 @@ public class PublicUsersControllerShould {
 
 
     @Test
-    public void not_perform_register_with_null_email() throws Exception {
+    void not_perform_register_with_null_email() throws Exception {
         User request = new UserBuilder().with(o -> {
             o.password = PASSWORD;
             o.username = USERNAME;
@@ -117,7 +117,7 @@ public class PublicUsersControllerShould {
     }
 
     @Test
-    public void perform_register() throws Exception {
+    void perform_register() throws Exception {
 
         final String newEmail = "new_email@domain.com";
 

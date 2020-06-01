@@ -18,7 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-public class OutflowServiceShould {
+class OutflowServiceShould {
 
     private static final String CURRENT_USER_ID = "my_current_user_id";
     private static final String INVALID_INFLOW_ID = "invalidOutflowDocumentId";
@@ -29,52 +29,52 @@ public class OutflowServiceShould {
     private Session user = mock(Session.class);
 
     @Test
-    public void throws_NullPointerException_when_null_outflowId_is_set_on_retrieve() {
+    void throws_NullPointerException_when_null_outflowId_is_set_on_retrieve() {
         assertThrows(NullPointerException.class, () -> tested.retrieve(user, null));
     }
 
 
     @Test
-    public void throws_NullPointerException_when_null_payload_is_set_for_creation() {
+    void throws_NullPointerException_when_null_payload_is_set_for_creation() {
         assertThrows(NullPointerException.class, () -> tested.create(user, null));
     }
 
 
     @Test
-    public void throws_NullPointerException_when_null_outflowId_is_set_on_remove() {
+    void throws_NullPointerException_when_null_outflowId_is_set_on_remove() {
         assertThrows(NullPointerException.class, () -> tested.remove(user, null));
     }
 
 
     @Test
-    public void throws_NullPointerException_when_null_outflowId_is_set_on_update() {
+    void throws_NullPointerException_when_null_outflowId_is_set_on_update() {
         assertThrows(NullPointerException.class, () -> tested.update(user, "", null));
     }
 
 
     @Test
-    public void throws_NullPointerException_when_null_payload_is_set_for_update() {
+    void throws_NullPointerException_when_null_payload_is_set_for_update() {
         assertThrows(NullPointerException.class, () -> tested.update(user, null, new OutflowDocument()));
     }
 
     @Test
-    public void throws_NullPointerException_when_null_outflowId_is_set_on_partial_update() {
+    void throws_NullPointerException_when_null_outflowId_is_set_on_partial_update() {
         assertThrows(NullPointerException.class, () -> tested.partialUpdate(user, "", null));
     }
 
 
     @Test
-    public void throws_NullPointerException_when_null_payload_is_set_for_partial_update() {
+    void throws_NullPointerException_when_null_payload_is_set_for_partial_update() {
         assertThrows(NullPointerException.class, () -> tested.partialUpdate(user, null, new OutflowDocument()));
     }
 
     @Test
-    public void throws_ElementNotFoundException_when_invalid_userId_is_set_on_retrieve() {
+    void throws_ElementNotFoundException_when_invalid_userId_is_set_on_retrieve() {
         assertThrows(ElementNotFoundException.class, () -> tested.retrieve(user, "invalid_id"));
     }
 
     @Test
-    public void retrieve_throw_ElementNotFoundException_user_when_invalid_outflowId_is_set() {
+    void retrieve_throw_ElementNotFoundException_user_when_invalid_outflowId_is_set() {
         assertThrows(ElementNotFoundException.class, () -> {
             when(user.getId()).thenReturn(CURRENT_USER_ID);
             when(outflowRepository.findByIdAndOwnerId(any(String.class), any(String.class))).thenReturn(Optional.empty());
@@ -83,7 +83,7 @@ public class OutflowServiceShould {
     }
 
     @Test
-    public void retrieve_outflow_when_valid_outflowId_is_set() throws ApiException {
+    void retrieve_outflow_when_valid_outflowId_is_set() throws ApiException {
         when(user.getId()).thenReturn(CURRENT_USER_ID);
         final OutflowDocument expected = new OutflowBuilder().with(o -> o.id = "INFLOW_ID").build();
         when(outflowRepository.findByIdAndOwnerId(any(String.class), any(String.class))).thenReturn(Optional.of(expected));
@@ -95,7 +95,7 @@ public class OutflowServiceShould {
     }
 
     @Test
-    public void create_user_when_valid_userId_is_set() {
+    void create_user_when_valid_userId_is_set() {
         final OutflowDocument expected = new OutflowBuilder().with(o -> o.id = INFLOW_ID).build();
         when(user.getId()).thenReturn(CURRENT_USER_ID);
         when(outflowRepository.insert(expected)).thenReturn(expected);
@@ -107,7 +107,7 @@ public class OutflowServiceShould {
     }
 
     @Test
-    public void remove_user_when_valid_userId_is_set() throws ApiException {
+    void remove_user_when_valid_userId_is_set() throws ApiException {
         final OutflowDocument outflowToRemove = new OutflowBuilder()
                 .with(o -> {
                     o.id = INFLOW_ID;
@@ -123,7 +123,7 @@ public class OutflowServiceShould {
     }
 
     @Test
-    public void throws_ElementNotFoundException_invalid_outflow_id_is_given() {
+    void throws_ElementNotFoundException_invalid_outflow_id_is_given() {
         assertThrows(ElementNotFoundException.class, () -> {
             when(user.getId()).thenReturn(CURRENT_USER_ID);
 
@@ -132,7 +132,7 @@ public class OutflowServiceShould {
     }
 
     @Test
-    public void get_all_outflow_for_user() {
+    void get_all_outflow_for_user() {
         final OutflowDocument outflow = new OutflowBuilder().with(o -> {
             o.id = INFLOW_ID;
             o.label = "new a name";
@@ -149,7 +149,7 @@ public class OutflowServiceShould {
 
 
     @Test
-    public void make_a_partial_update_of_outflow() throws ApiException {
+    void make_a_partial_update_of_outflow() throws ApiException {
         final OutflowDocument oldOutflowDocument = new OutflowBuilder()
                 .with(o -> {
                     o.id = INFLOW_ID;
@@ -186,7 +186,7 @@ public class OutflowServiceShould {
     }
 
     @Test
-    public void update_user_when_payload_without_id_is_set() {
+    void update_user_when_payload_without_id_is_set() {
         final OutflowDocument expected = new OutflowBuilder().with(o -> {
             o.id = INFLOW_ID;
             o.label = "new a name";

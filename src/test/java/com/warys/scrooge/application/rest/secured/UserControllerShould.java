@@ -1,18 +1,18 @@
 package com.warys.scrooge.application.rest.secured;
 
 import com.warys.scrooge.application.command.request.UpdatePassword;
-import com.warys.scrooge.domain.model.user.User;
 import com.warys.scrooge.domain.model.builder.UserBuilder;
+import com.warys.scrooge.domain.model.user.User;
 import com.warys.scrooge.infrastructure.repository.mongo.entity.UserDocument;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 
@@ -25,16 +25,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles(value = "test")
-public class UserControllerShould extends SecuredTest {
+class UserControllerShould extends SecuredTest {
 
     private static final String RESOURCE = "/me";
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         init();
         UserDocument user = new UserBuilder().with(o -> {
             o.id = USER_ID;
@@ -52,7 +52,7 @@ public class UserControllerShould extends SecuredTest {
     }
 
     @Test
-    public void get_me() throws Exception {
+    void get_me() throws Exception {
         this.mockMvc.perform(
                 get(RESOURCE)
                         .header("Authorization", "Bearer " + VALID_TOKEN)
@@ -61,7 +61,7 @@ public class UserControllerShould extends SecuredTest {
     }
 
     @Test
-    public void return_Unauthorized_when_invalid_token_is_given() throws Exception {
+    void return_Unauthorized_when_invalid_token_is_given() throws Exception {
         this.mockMvc.perform(
                 get(RESOURCE)
                         .header("Authorization", "Bearer " + "BAD" + VALID_TOKEN + "SOO BAD")
@@ -70,7 +70,7 @@ public class UserControllerShould extends SecuredTest {
     }
 
     @Test
-    public void update_me() throws Exception {
+    void update_me() throws Exception {
         User request = new UserBuilder().with(o -> {
             o.id = USER_ID;
             o.email = EMAIL;
@@ -88,7 +88,7 @@ public class UserControllerShould extends SecuredTest {
     }
 
     @Test
-    public void partial_update_me() throws Exception {
+    void partial_update_me() throws Exception {
         User request = new UserBuilder().with(o -> o.username = "newnewname").buildCommand();
 
         this.mockMvc.perform(
@@ -103,7 +103,7 @@ public class UserControllerShould extends SecuredTest {
     }
 
     @Test
-    public void update_password() throws Exception {
+    void update_password() throws Exception {
         UpdatePassword request = new UpdatePassword("newpassword@gmail.com");
 
         this.mockMvc.perform(
@@ -115,7 +115,7 @@ public class UserControllerShould extends SecuredTest {
     }
 
     @Test
-    public void not_update_password_when_invalid_email() throws Exception {
+    void not_update_password_when_invalid_email() throws Exception {
         UpdatePassword request = new UpdatePassword("email");
 
         this.mockMvc.perform(

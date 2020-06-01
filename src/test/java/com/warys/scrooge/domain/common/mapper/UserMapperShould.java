@@ -1,9 +1,9 @@
 package com.warys.scrooge.domain.common.mapper;
 
-import com.warys.scrooge.domain.model.user.User;
 import com.warys.scrooge.domain.model.builder.UserBuilder;
+import com.warys.scrooge.domain.model.user.User;
 import com.warys.scrooge.infrastructure.repository.mongo.entity.UserDocument;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
@@ -12,14 +12,14 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(classes = {UserMapper.class})
-public class UserMapperShould {
+class UserMapperShould {
 
     private static final LocalDateTime NOW = LocalDateTime.now();
 
     private BeanMapper<UserDocument, User> tested = new UserMapper();
 
     @Test
-    public void map_user_to_command() {
+    void map_user_to_command() {
         UserDocument orig = new UserBuilder()
                 .with(
                         o -> {
@@ -41,7 +41,7 @@ public class UserMapperShould {
     }
 
     @Test
-    public void map_command_to_user() {
+    void map_command_to_user() {
         User orig = new UserBuilder()
                 .with(
                         o -> {

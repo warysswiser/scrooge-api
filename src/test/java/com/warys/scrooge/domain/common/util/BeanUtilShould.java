@@ -5,13 +5,13 @@ import com.warys.scrooge.domain.model.builder.InflowBuilder;
 import com.warys.scrooge.domain.model.builder.UserBuilder;
 import com.warys.scrooge.domain.model.user.User;
 import com.warys.scrooge.infrastructure.repository.mongo.entity.UserDocument;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class BeanUtilShould {
+class BeanUtilShould {
 
     private static final String DESTINATION_ID = "destinationId";
     private static final String SOURCE_ID = "sourceId";
@@ -20,7 +20,7 @@ public class BeanUtilShould {
     private static final LocalDateTime NOW = LocalDateTime.now();
 
     @Test
-    public void make_a_complete_copy_of_origin_flow_when_destination_is_empty() {
+    void make_a_complete_copy_of_origin_flow_when_destination_is_empty() {
 
         Cashflow orig = new InflowBuilder()
                 .with(
@@ -45,7 +45,7 @@ public class BeanUtilShould {
     }
 
     @Test
-    public void make_a_complete_copy_of_origin_flow_when_destination_is_empty_and_origin_has_nested_beans() {
+    void make_a_complete_copy_of_origin_flow_when_destination_is_empty_and_origin_has_nested_beans() {
 
         Cashflow orig = new InflowBuilder()
                 .with(
@@ -71,7 +71,7 @@ public class BeanUtilShould {
 
 
     @Test
-    public void make_a_complete_copy_of_origin_user_when_destination_is_empty() {
+    void make_a_complete_copy_of_origin_user_when_destination_is_empty() {
 
         var orig = new UserBuilder()
                 .with(
@@ -96,7 +96,7 @@ public class BeanUtilShould {
     }
 
     @Test
-    public void make_a_partial_copy_of_origin_when_destination_is_empty() {
+    void make_a_partial_copy_of_origin_when_destination_is_empty() {
 
         Cashflow orig = new InflowBuilder()
                 .with(
@@ -130,7 +130,7 @@ public class BeanUtilShould {
     }
 
     @Test
-    public void make_a_partial_copy_when_origin_and_destination_are_not_semantically_the_same() {
+    void make_a_partial_copy_when_origin_and_destination_are_not_semantically_the_same() {
 
         Cashflow orig = new InflowBuilder()
                 .with(
@@ -154,7 +154,7 @@ public class BeanUtilShould {
 
 
     @Test
-    public void should_not_map_or_throw_exception_when_origin_has_empty_nested_field() {
+    void should_not_map_or_throw_exception_when_origin_has_empty_nested_field() {
         GenericModelWrapper orig = new GenericModelWrapper("name", new Cashflow());
         GenericModelWrapper dest = new GenericModelWrapper();
 
@@ -165,7 +165,7 @@ public class BeanUtilShould {
     }
 
     @Test
-    public void should_not_map_or_throw_exception_when_origin_has_filled_nested_field() {
+    void should_not_map_or_throw_exception_when_origin_has_filled_nested_field() {
         final Cashflow model = new Cashflow();
         model.setCategory("category");
         model.setAmount(12);
@@ -180,7 +180,7 @@ public class BeanUtilShould {
 
 
     @Test
-    public void should_not_map_or_throw_exception_when_origin_has_partial_filled_nested_field() {
+    void should_not_map_or_throw_exception_when_origin_has_partial_filled_nested_field() {
         final Cashflow origModel = new Cashflow();
         origModel.setCategory("category");
         origModel.setAmount(12);
@@ -203,7 +203,6 @@ public class BeanUtilShould {
 
     public static class GenericModelWrapper {
         private String name;
-        private String thePrivateOne;
         private Cashflow model;
 
         public GenericModelWrapper() {
@@ -228,14 +227,6 @@ public class BeanUtilShould {
 
         public void setModel(Cashflow model) {
             this.model = model;
-        }
-
-        private String getThePrivateOne() {
-            return thePrivateOne;
-        }
-
-        private void setThePrivateOne(String thePrivateOne) {
-            this.thePrivateOne = thePrivateOne;
         }
     }
 }
