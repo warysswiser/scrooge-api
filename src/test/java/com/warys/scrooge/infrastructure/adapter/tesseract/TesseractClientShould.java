@@ -14,7 +14,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TesseractClientShould {
-/*
     @Test
     void extract_data() throws TesseractException {
         final TesseractClient client = getTesseractClient();
@@ -53,5 +52,4 @@ class TesseractClientShould {
 
         return new TesseractClient(tesseract);
     }
- */
 }
