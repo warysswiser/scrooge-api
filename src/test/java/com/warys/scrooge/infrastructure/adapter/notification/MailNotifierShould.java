@@ -35,6 +35,6 @@ class MailNotifierShould {
 
         tested.sendSubscriptionMessage(TO);
 
-        verifyZeroInteractions(emailSender);
+        verifyNoMoreInteractions(emailSender);
     }
 }
