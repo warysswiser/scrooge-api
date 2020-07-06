@@ -1,4 +1,4 @@
-package com.warys.scrooge.infrastructure.adapter.tesseract;
+package com.warys.scrooge.infrastructure.spi.tesseract;
 
 import org.opencv.core.Mat;
 import org.opencv.core.Size;

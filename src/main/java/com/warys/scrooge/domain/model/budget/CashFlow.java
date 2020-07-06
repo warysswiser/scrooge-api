@@ -8,7 +8,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Cashflow extends GenericModel {
+public class CashFlow extends GenericModel {
 
     private String ownerId;
     private String category;

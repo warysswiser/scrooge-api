@@ -1,4 +1,4 @@
-package com.warys.scrooge.infrastructure.adapter.notifier;
+package com.warys.scrooge.infrastructure.spi.notifier;
 
 public interface Notifier {
 

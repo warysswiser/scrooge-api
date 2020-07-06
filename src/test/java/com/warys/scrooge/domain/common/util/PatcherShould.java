@@ -1,6 +1,6 @@
 package com.warys.scrooge.domain.common.util;
 
-import com.warys.scrooge.domain.model.budget.Cashflow;
+import com.warys.scrooge.domain.model.budget.CashFlow;
 import com.warys.scrooge.domain.model.builder.InflowBuilder;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +12,7 @@ class PatcherShould {
     @Test
     void make_a_complete_copy_of_origin_flow_when_destination_is_empty() {
 
-        Cashflow orig = new InflowBuilder()
+        CashFlow orig = new InflowBuilder()
                 .with(
                         o -> {
                             o.id = "SOURCE_ID";

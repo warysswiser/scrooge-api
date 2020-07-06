@@ -1,7 +1,6 @@
-package com.warys.scrooge.infrastructure.adapter.notification;
+package com.warys.scrooge.infrastructure.spi.notification;
 
-import com.warys.scrooge.infrastructure.adapter.notifier.MailNotifier;
-import com.warys.scrooge.infrastructure.adapter.notifier.Notifier;
+import com.warys.scrooge.infrastructure.spi.notifier.MailNotifier;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.mail.SimpleMailMessage;

@@ -1,4 +1,4 @@
-package com.warys.scrooge.infrastructure.adapter.tesseract;
+package com.warys.scrooge.infrastructure.spi.tesseract;
 
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
@@ -6,7 +6,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 import java.io.File;
 import java.nio.file.Path;
 
-import static com.warys.scrooge.infrastructure.adapter.tesseract.ImagePreProcessor.*;
+import static com.warys.scrooge.infrastructure.spi.tesseract.ImagePreProcessor.*;
 
 public class ImagePreProcessing {
 

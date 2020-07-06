@@ -1,4 +1,4 @@
-package com.warys.scrooge.infrastructure.adapter.tesseract;
+package com.warys.scrooge.infrastructure.spi.tesseract;
 
 import com.warys.scrooge.domain.model.ocr.Receipt;
 import net.sourceforge.tess4j.ITesseract;
@@ -36,8 +36,8 @@ class TesseractClientShould {
     }
 
     @Test
-    void throw_CvException_when_input_file_does_not_exists() {
-        assertThrows(CvException.class, () -> {
+    void throw_IllegalStateException_input_file_does_not_exists() {
+        assertThrows(IllegalStateException.class, () -> {
             final TesseractClient client = getTesseractClient();
             final File file = Path.of("src/test/resources/bad.jpg").toAbsolutePath().toFile();
             client.extractReceipt(file);

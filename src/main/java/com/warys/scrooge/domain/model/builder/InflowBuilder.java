@@ -1,6 +1,5 @@
 package com.warys.scrooge.domain.model.builder;
 
-import com.warys.scrooge.domain.model.budget.Cashflow;
 import com.warys.scrooge.infrastructure.repository.mongo.entity.InflowDocument;
 
 import java.time.LocalDateTime;

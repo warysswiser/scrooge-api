@@ -1,4 +1,4 @@
-package com.warys.scrooge.infrastructure.adapter.tesseract;
+package com.warys.scrooge.infrastructure.spi.tesseract;
 
 import com.warys.scrooge.domain.model.ocr.Receipt;
 import com.warys.scrooge.infrastructure.exception.technical.TechnicalException;

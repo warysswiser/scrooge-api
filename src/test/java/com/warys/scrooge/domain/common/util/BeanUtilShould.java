@@ -1,6 +1,6 @@
 package com.warys.scrooge.domain.common.util;
 
-import com.warys.scrooge.domain.model.budget.Cashflow;
+import com.warys.scrooge.domain.model.budget.CashFlow;
 import com.warys.scrooge.domain.model.builder.InflowBuilder;
 import com.warys.scrooge.domain.model.builder.UserBuilder;
 import com.warys.scrooge.domain.model.user.User;
@@ -22,7 +22,7 @@ class BeanUtilShould {
     @Test
     void make_a_complete_copy_of_origin_flow_when_destination_is_empty() {
 
-        Cashflow orig = new InflowBuilder()
+        CashFlow orig = new InflowBuilder()
                 .with(
                         o -> {
                             o.id = SOURCE_ID;
@@ -37,7 +37,7 @@ class BeanUtilShould {
                         })
                 .build();
 
-        var dest = new Cashflow();
+        var dest = new CashFlow();
 
         BeanUtil.copyBean(orig, dest);
 
@@ -47,7 +47,7 @@ class BeanUtilShould {
     @Test
     void make_a_complete_copy_of_origin_flow_when_destination_is_empty_and_origin_has_nested_beans() {
 
-        Cashflow orig = new InflowBuilder()
+        CashFlow orig = new InflowBuilder()
                 .with(
                         o -> {
                             o.id = SOURCE_ID;
@@ -98,7 +98,7 @@ class BeanUtilShould {
     @Test
     void make_a_partial_copy_of_origin_when_destination_is_empty() {
 
-        Cashflow orig = new InflowBuilder()
+        CashFlow orig = new InflowBuilder()
                 .with(
                         o -> {
                             o.label = "myFlow";
@@ -108,7 +108,7 @@ class BeanUtilShould {
                         })
                 .build();
 
-        Cashflow dest = new InflowBuilder()
+        CashFlow dest = new InflowBuilder()
                 .with(
                         o -> {
                             o.id = DESTINATION_ID;
@@ -132,7 +132,7 @@ class BeanUtilShould {
     @Test
     void make_a_partial_copy_when_origin_and_destination_are_not_semantically_the_same() {
 
-        Cashflow orig = new InflowBuilder()
+        CashFlow orig = new InflowBuilder()
                 .with(
                         o -> {
                             o.id = SOURCE_ID;
@@ -155,7 +155,7 @@ class BeanUtilShould {
 
     @Test
     void should_not_map_or_throw_exception_when_origin_has_empty_nested_field() {
-        GenericModelWrapper orig = new GenericModelWrapper("name", new Cashflow());
+        GenericModelWrapper orig = new GenericModelWrapper("name", new CashFlow());
         GenericModelWrapper dest = new GenericModelWrapper();
 
         BeanUtil.copyBean(orig, dest);
@@ -166,7 +166,7 @@ class BeanUtilShould {
 
     @Test
     void should_not_map_or_throw_exception_when_origin_has_filled_nested_field() {
-        final Cashflow model = new Cashflow();
+        final CashFlow model = new CashFlow();
         model.setCategory("category");
         model.setAmount(12);
         GenericModelWrapper orig = new GenericModelWrapper("name", model);
@@ -181,11 +181,11 @@ class BeanUtilShould {
 
     @Test
     void should_not_map_or_throw_exception_when_origin_has_partial_filled_nested_field() {
-        final Cashflow origModel = new Cashflow();
+        final CashFlow origModel = new CashFlow();
         origModel.setCategory("category");
         origModel.setAmount(12);
 
-        final Cashflow destModel = new Cashflow();
+        final CashFlow destModel = new CashFlow();
         destModel.setAmount(8);
         destModel.setLabel("label");
 
@@ -203,12 +203,12 @@ class BeanUtilShould {
 
     public static class GenericModelWrapper {
         private String name;
-        private Cashflow model;
+        private CashFlow model;
 
         public GenericModelWrapper() {
         }
 
-        public GenericModelWrapper(String name, Cashflow model) {
+        public GenericModelWrapper(String name, CashFlow model) {
             this.name = name;
             this.model = model;
         }
@@ -221,11 +221,11 @@ class BeanUtilShould {
             this.name = name;
         }
 
-        public Cashflow getModel() {
+        public CashFlow getModel() {
             return model;
         }
 
-        public void setModel(Cashflow model) {
+        public void setModel(CashFlow model) {
             this.model = model;
         }
     }

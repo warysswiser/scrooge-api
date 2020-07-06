@@ -1,4 +1,4 @@
-package com.warys.scrooge.infrastructure.adapter.notifier;
+package com.warys.scrooge.infrastructure.spi.notifier;
 
 import com.google.common.annotations.VisibleForTesting;
 import org.slf4j.LoggerFactory;

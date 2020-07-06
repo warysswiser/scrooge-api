@@ -3,7 +3,7 @@ package com.warys.scrooge.domain.service.user;
 import com.warys.scrooge.domain.model.builder.UserBuilder;
 import com.warys.scrooge.domain.model.user.User;
 import com.warys.scrooge.infrastructure.repository.mongo.entity.UserDocument;
-import com.warys.scrooge.infrastructure.adapter.notifier.Notifier;
+import com.warys.scrooge.infrastructure.spi.notifier.Notifier;
 import com.warys.scrooge.infrastructure.repository.mongo.UserRepository;
 import com.warys.scrooge.application.command.response.LoginResponse;
 import com.warys.scrooge.infrastructure.exception.ApiException;

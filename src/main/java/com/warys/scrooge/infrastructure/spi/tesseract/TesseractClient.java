@@ -1,4 +1,4 @@
-package com.warys.scrooge.infrastructure.adapter.tesseract;
+package com.warys.scrooge.infrastructure.spi.tesseract;
 
 import com.warys.scrooge.domain.model.ocr.Receipt;
 import net.sourceforge.tess4j.ITesseract;
@@ -18,11 +18,11 @@ public class TesseractClient implements OCRClient {
 
     @Override
     public Receipt extractReceipt(File source) throws TesseractException {
-        assert source.exists();
+        if (!source.exists()) {
+            throw new IllegalStateException("File given for processing must exists");
+        }
         final File image = ImagePreProcessing.execute(source);
         final String rawData = delegate.doOCR(image);
-        final Receipt receipt = Receipt.fromRawData(rawData);
-        source.delete();
-        return receipt;
+        return Receipt.fromRawData(rawData);
     }
 }

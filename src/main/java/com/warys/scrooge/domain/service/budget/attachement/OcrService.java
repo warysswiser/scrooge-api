@@ -2,7 +2,7 @@ package com.warys.scrooge.domain.service.budget.attachement;
 
 import com.warys.scrooge.domain.model.ocr.Receipt;
 import com.warys.scrooge.domain.model.user.Session;
-import com.warys.scrooge.infrastructure.adapter.tesseract.OCRClient;
+import com.warys.scrooge.infrastructure.spi.tesseract.OCRClient;
 import com.warys.scrooge.infrastructure.exception.technical.TechnicalException;
 import net.sourceforge.tess4j.TesseractException;
 import org.slf4j.LoggerFactory;
