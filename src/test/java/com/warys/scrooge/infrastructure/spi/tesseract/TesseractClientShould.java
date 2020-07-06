@@ -5,7 +5,6 @@ import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
 import org.junit.jupiter.api.Test;
-import org.opencv.core.CvException;
 
 import java.io.File;
 import java.nio.file.Path;
