@@ -1,8 +1,9 @@
 package com.warys.scrooge.application.rest;
 
 import com.warys.scrooge.application.command.request.LoginRequest;
+import com.warys.scrooge.application.command.request.RegisterRequest;
 import com.warys.scrooge.application.command.response.LoginResponse;
-import com.warys.scrooge.domain.model.user.User;
+import com.warys.scrooge.application.command.response.RegisterResponse;
 import com.warys.scrooge.domain.service.user.AuthenticationService;
 import com.warys.scrooge.infrastructure.exception.ApiException;
 import lombok.AllArgsConstructor;
@@ -29,7 +30,7 @@ public final class PublicUsersController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@Valid @RequestBody User request) throws ApiException {
+    public ResponseEntity<RegisterResponse> register(@Valid @RequestBody RegisterRequest request) throws ApiException {
         return new ResponseEntity<>(authentication.register(request), HttpStatus.CREATED);
     }
 }

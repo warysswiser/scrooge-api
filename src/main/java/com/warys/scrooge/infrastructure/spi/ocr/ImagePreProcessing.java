@@ -1,4 +1,4 @@
-package com.warys.scrooge.infrastructure.spi.tesseract;
+package com.warys.scrooge.infrastructure.spi.ocr;
 
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
@@ -6,11 +6,14 @@ import org.opencv.imgcodecs.Imgcodecs;
 import java.io.File;
 import java.nio.file.Path;
 
-import static com.warys.scrooge.infrastructure.spi.tesseract.ImagePreProcessor.*;
+import static com.warys.scrooge.infrastructure.spi.ocr.ImagePreProcessor.*;
 
 public class ImagePreProcessing {
 
-    private final static String PREPARED_FILE = "./processed_image.png";
+    private ImagePreProcessing() {
+    }
+
+    private static final String PREPARED_FILE = "./processed_image.png";
 
     public static File execute(File source) {
         Mat image = Imgcodecs.imread(source.getAbsolutePath());

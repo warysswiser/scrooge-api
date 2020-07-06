@@ -21,8 +21,6 @@ import java.util.Objects;
 @Service
 public class AttachmentService implements CrudAttachmentService {
 
-    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(AttachmentService.class);
-
     private AttachmentRepository attachmentRepository;
 
     @Autowired
@@ -59,8 +57,7 @@ public class AttachmentService implements CrudAttachmentService {
             return attachmentRepository.insert(attachment).getId();
 
         } catch (IOException e) {
-            logger.error("could not get bytes", e);
-            throw new TechnicalException(e);
+            throw new TechnicalException("could not get bytes", e);
         }
     }
 

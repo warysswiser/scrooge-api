@@ -17,11 +17,11 @@ import java.util.stream.Collectors;
 @Setter
 public class Receipt implements Serializable {
 
-    private static Pattern DATE_PATTERN = Pattern.compile("\\d{2}(-|\\/)\\d{2}(-|\\/)\\d{2}");
-    private static Pattern HOUR_PATTERN = Pattern.compile("\\d{2}(:)\\d{2}");
-    private static Pattern TOTAL_PATTERN = Pattern.compile("TOTAL.*\\d+(.|,)\\d*");
-    private static Pattern ITEM_PATTERN = Pattern.compile(".*\\d+(.|,)\\d*(€).*");
-    private static Pattern AMOUNT_PATTERN = Pattern.compile("\\d{1,2}(,|\\.)\\d{1,2}( )?(€|$)");
+    private static final Pattern DATE_PATTERN = Pattern.compile("\\d{2}(-|\\/)\\d{2}(-|\\/)\\d{2}");
+    private static final Pattern HOUR_PATTERN = Pattern.compile("\\d{2}(:)\\d{2}");
+    private static final Pattern TOTAL_PATTERN = Pattern.compile("TOTAL.*\\d+(.|,)\\d*");
+    private static final Pattern ITEM_PATTERN = Pattern.compile(".*\\d+(.|,)\\d*(€).*");
+    private static final Pattern AMOUNT_PATTERN = Pattern.compile("\\d{1,2}(,|\\.)\\d{1,2}( )?(€|$)");
 
     private LocalDateTime creationDate;
     private double total;
@@ -37,7 +37,8 @@ public class Receipt implements Serializable {
         AtomicReference<String> prev = new AtomicReference<>();
 
         collect.forEach(x -> {
-            String date = null, hour = "00:00";
+            String date = null;
+            String hour = "00:00";
             final Matcher dateMatcher = DATE_PATTERN.matcher(x);
             while (dateMatcher.find()) {
                 date = dateMatcher.group();
@@ -82,15 +83,15 @@ public class Receipt implements Serializable {
                                 amount = amountMatcher.group();
                                 label = prev.toString()
                                         .replace(" 11", "")
-                                        .replaceAll("«", "")
-                                        .replaceAll("- ", "")
+                                        .replace("«", "")
+                                        .replace("- ", "")
                                         .replace("À ", "")
-                                        .replaceAll(":", "")
+                                        .replace(":", "")
                                         .replace("[", "")
-                                        .replaceAll("]", "")
-                                        .replaceAll(";", "")
-                                        .replaceAll("\\s+$", "")
-                                        .replaceAll("^\\s+", "");
+                                        .replace("]", "")
+                                        .replace(";", "")
+                                        .replace("\\s+$", "")
+                                        .replace("^\\s+", "");
                                 items.add(new ReceiptItem(label, Double.parseDouble(amount
                                         .replace("€", "")
                                         .replace(",", "."))));
@@ -100,15 +101,15 @@ public class Receipt implements Serializable {
                             amount = amountMatcher.group();
                             label = group.replaceFirst(amount, "")
                                     .replace(" 11", "")
-                                    .replaceAll("«", "")
-                                    .replaceAll("- ", "")
+                                    .replace("«", "")
+                                    .replace("- ", "")
                                     .replace("À ", "")
-                                    .replaceAll(":", "")
+                                    .replace(":", "")
                                     .replace("[", "")
-                                    .replaceAll("]", "")
-                                    .replaceAll(";", "")
-                                    .replaceAll("\\s+$", "")
-                                    .replaceAll("^\\s+", "");
+                                    .replace("]", "")
+                                    .replace(";", "")
+                                    .replace("\\s+$", "")
+                                    .replace("^\\s+", "");
                             items.add(new ReceiptItem(label, Double.parseDouble(amount
                                     .replace("€", "")
                                     .replace(",", "."))));

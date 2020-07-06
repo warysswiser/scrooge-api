@@ -1,4 +1,4 @@
-package com.warys.scrooge.infrastructure.spi.tesseract;
+package com.warys.scrooge.infrastructure.spi.ocr;
 
 import com.warys.scrooge.domain.model.ocr.Receipt;
 import net.sourceforge.tess4j.ITesseract;
@@ -20,7 +20,6 @@ class TesseractClientShould {
         final Receipt expectedOcrData = client.extractReceipt(file);
         assertThat(expectedOcrData).isNotNull();
         assertThat(expectedOcrData).hasNoNullFieldsOrProperties();
-        assertThat(Path.of("./processed_image.png").toAbsolutePath().toFile().delete()).isTrue();
     }
 
 

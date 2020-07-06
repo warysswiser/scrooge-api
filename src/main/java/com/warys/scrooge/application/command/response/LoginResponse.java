@@ -1,14 +1,11 @@
 package com.warys.scrooge.application.command.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
-@AllArgsConstructor
-@Getter
-@Setter
+@Data
+@Builder
 public class LoginResponse implements Serializable {
     private String token;
     private String id;

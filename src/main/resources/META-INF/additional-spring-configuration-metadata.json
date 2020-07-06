@@ -108,7 +108,22 @@
     {
       "name": "app.swagger.api.name",
       "type": "java.lang.String",
-      "description": "Description for app.swagger.api.name."
+      "description": "API name that will be used by Swagger."
+    },
+    {
+      "name": "app.ocr.data.path",
+      "type": "java.lang.String",
+      "description": "Ocr learned data."
+    },
+    {
+      "name": "app.ocr.default.language",
+      "type": "java.lang.String",
+      "description": "Ocr default language."
+    },
+    {
+      "name": "app.ocr.files.dir",
+      "type": "java.lang.String",
+      "description": "Ocr directory for file that will be processed."
     }
   ]
 }

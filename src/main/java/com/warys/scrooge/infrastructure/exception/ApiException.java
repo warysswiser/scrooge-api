@@ -10,7 +10,7 @@ public class ApiException extends Exception {
         super(s);
     }
 
-    protected ApiException(Throwable cause) {
-        super(cause);
+    protected ApiException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

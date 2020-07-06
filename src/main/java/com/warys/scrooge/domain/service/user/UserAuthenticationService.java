@@ -1,24 +1,24 @@
 package com.warys.scrooge.domain.service.user;
 
+import com.warys.scrooge.application.command.request.RegisterRequest;
+import com.warys.scrooge.application.command.response.LoginResponse;
+import com.warys.scrooge.application.command.response.RegisterResponse;
 import com.warys.scrooge.domain.model.builder.UserBuilder;
 import com.warys.scrooge.domain.model.user.User;
-import com.warys.scrooge.infrastructure.repository.mongo.entity.UserDocument;
-import com.warys.scrooge.infrastructure.spi.notifier.Notifier;
-import com.warys.scrooge.infrastructure.repository.mongo.UserRepository;
-import com.warys.scrooge.application.command.response.LoginResponse;
 import com.warys.scrooge.infrastructure.exception.ApiException;
+import com.warys.scrooge.infrastructure.repository.mongo.UserRepository;
+import com.warys.scrooge.infrastructure.repository.mongo.entity.UserDocument;
+import com.warys.scrooge.infrastructure.spi.auth.TokenProvider;
+import com.warys.scrooge.infrastructure.spi.notifier.Notifier;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.Optional;
 
@@ -29,20 +29,17 @@ public class UserAuthenticationService implements AuthenticationService {
 
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(UserAuthenticationService.class);
 
-    private static final String SECRET = "ThisIsASecret";
-
     private final UserService publicUserService;
     private final UserRepository userRepository;
     private final Notifier mailNotifier;
-
-    @Value("${app.auth.token.expiration.days}")
-    private int expirationDays;
+    private final TokenProvider tokenProvider;
 
 
-    public UserAuthenticationService(@Qualifier("publicUserService") UserService publicUserService, UserRepository userRepository, Notifier mailNotifier) {
+    public UserAuthenticationService(@Qualifier("publicUserService") UserService publicUserService, UserRepository userRepository, Notifier mailNotifier, TokenProvider tokenProvider) {
         this.publicUserService = publicUserService;
         this.userRepository = userRepository;
         this.mailNotifier = mailNotifier;
+        this.tokenProvider = tokenProvider;
     }
 
     @Override
@@ -50,18 +47,19 @@ public class UserAuthenticationService implements AuthenticationService {
 
         User user = publicUserService.getUserByCredentials(email, password);
 
-        String token = Jwts.builder()
-                .setSubject("authentication token")
-                .setExpiration(Date.from(LocalDateTime.now().plusYears(expirationDays).toInstant(ZoneOffset.UTC)))
-                .signWith(SignatureAlgorithm.HS512, SECRET)
-                .claim("userId", user.getId())
-                .compact();
+        String token = tokenProvider.generateFrom(user);
 
-        return new LoginResponse(token, user.getId(), user.getUsername(), user.getEmail());
+        return LoginResponse
+                .builder()
+                .token(token)
+                .id(user.getId())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .build();
     }
 
     @Override
-    public User register(final User command) throws ApiException {
+    public RegisterResponse register(final RegisterRequest command) throws ApiException {
         String email = command.getEmail();
 
         publicUserService.checkUserEmail(email);
@@ -73,17 +71,15 @@ public class UserAuthenticationService implements AuthenticationService {
                     o.firstName = command.getFirstName();
                     o.lastName = command.getLastName();
                     o.username = command.getUsername();
-                    o.password = command.getPassword();
                 }
         ).build();
 
-        final var result = new User();
+        final var result = new RegisterResponse();
 
         final UserDocument createdUser = userRepository.insert(user);
+        mailNotifier.sendSubscriptionMessage(user.getEmail());
 
         patch(createdUser, result);
-
-        mailNotifier.sendSubscriptionMessage(user.getEmail());
 
         return result;
     }
@@ -92,10 +88,11 @@ public class UserAuthenticationService implements AuthenticationService {
     public Optional<User> findByToken(final String token) {
         try {
             Claims claims = Jwts.parser()
-                    .setSigningKey(SECRET)
+                    .setSigningKey(tokenProvider.getSecret())
                     .parseClaimsJws(token)
                     .getBody();
             final String userId = claims.get("userId", String.class);
+
             if (null != userId && claims.getExpiration().after(new Date())) {
                 var userPayload = new User();
                 final UserDocument savedUser = userRepository.findById(userId).orElseThrow();

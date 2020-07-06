@@ -1,4 +1,4 @@
-package com.warys.scrooge.infrastructure.spi.tesseract;
+package com.warys.scrooge.infrastructure.spi.ocr;
 
 import com.warys.scrooge.domain.model.ocr.Receipt;
 import net.sourceforge.tess4j.ITesseract;
