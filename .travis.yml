@@ -12,11 +12,9 @@ install: true
 
 jobs:
   include:
-    - stage: build on docker
+    - stage: build and start docker
       script:
         - docker build -t scrooge-api .
-    - stage: start docker image
-      script:
         - docker run -p 8089:8089 -it scrooge-api .
         - IMG_PID=$(docker ps | grep scrooge-api | awk -F ' ' '{print $1}')
         - docker stop $IMG_PID
