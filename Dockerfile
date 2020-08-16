@@ -16,12 +16,6 @@ WORKDIR /scrooge-api
 # Run Maven build
 RUN mvn clean install
 
-RUN ls -l
-
-RUN pwd
-
-COPY "target/scrooge-api.jar" app.jar
-
-ENTRYPOINT [ "java", "-jar", "app.jar"]
+ENTRYPOINT [ "java", "-jar", "target/scrooge-api.jar"]
 
 EXPOSE 8089
