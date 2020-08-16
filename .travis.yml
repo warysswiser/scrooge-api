@@ -7,17 +7,11 @@ dist: trusty
 
 jdk: openjdk14
 
-services:
-  - docker
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -y install tesseract-ocr
+  - sudo apt-get -y install tesseract-ocr-eng
+  - sudo apt-get -y install tesseract-ocr-fra
 
-install: true
-
-jobs:
-  include:
-    - stage: build on docker
-      script:
-        - docker build -t scrooge-api .
-    - stage: package
-      script:
-        # tests are executed on docker build stage
-        - mvn clean package -DskipTests=true
+after_success:
+  - mvn jacoco:report coveralls:report

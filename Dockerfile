@@ -14,7 +14,7 @@ ADD . /scrooge-api
 WORKDIR /scrooge-api
 
 # Run Maven build
-RUN mvn clean install jacoco:report coveralls:report
+RUN mvn clean install
 
 ENTRYPOINT [ "java", "-jar", "target/scrooge-api.jar"]
 
