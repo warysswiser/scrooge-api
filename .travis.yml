@@ -7,5 +7,8 @@ dist: trusty
 
 jdk: openjdk14
 
+services:
+  - docker
+
 after_success:
   - mvn jacoco:report coveralls:report
