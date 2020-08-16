@@ -20,7 +20,7 @@ jobs:
     - stage: package
       script:
         # tests are executed on docker build stage
-        - mvn clean package -DskipTests=true jacoco:report coveralls:report
+        - mvn clean package -DskipTests=true
 
 after_success:
   - mvn jacoco:report coveralls:report
