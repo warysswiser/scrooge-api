@@ -1,25 +1,23 @@
-# Docker multi-stage build
+FROM ubuntu
 
-# 1. Building the App with Maven and java 14
-FROM maven:3-jdk-14
+# Install dependencies
+RUN apt-get update && apt-get -y install \
+    openjdk-14-jre \
+    maven \
+    tesseract-ocr \
+    tesseract-ocr-eng \
+    tesseract-ocr-fra
+#    tesseract-ocr-all
 
 ADD . /scrooge-api
-WORKDIR /scrooge-api
 
-# Just echo so we can see, if everything is there :)
-RUN ls -l
+WORKDIR /scrooge-api
 
 # Run Maven build
 RUN mvn clean install
 
+COPY "/scrooge-api/target/scrooge-api.jar" app.jar
 
-# 2. Just using the build artifact and then removing the build-container
-FROM openjdk:14-jdk
+ENTRYPOINT [ "java", "-jar", "app.jar"]
 
-VOLUME /tmp
-
-# Add Spring Boot app.jar to Container
-COPY --from=0 "/scrooge-api/target/scrooge-api-*-SNAPSHOT.jar" app.jar
-
-# Fire up our Spring Boot app by default
-CMD [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
+EXPOSE 8089
