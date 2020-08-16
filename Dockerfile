@@ -16,7 +16,7 @@ WORKDIR /scrooge-api
 # Run Maven build
 RUN mvn clean install
 
-COPY "/scrooge-api/target/scrooge-api.jar" app.jar
+COPY "target/scrooge-api.jar" app.jar
 
 ENTRYPOINT [ "java", "-jar", "app.jar"]
 

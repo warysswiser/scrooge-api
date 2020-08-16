@@ -8,13 +8,19 @@ dist: trusty
 services:
   - docker
 
+install: true
+
 jobs:
   include:
     - stage: build on docker
       script:
         - docker build -t scrooge-api .
-install: true
-script: mvn clean package -DskipTests=true
+    - stage: start docker image
+      script:
+        - docker run -p 8089:8089 -it scrooge-api .
+    - stage: package
+      script:
+        - mvn clean package -DskipTests=true
 
 after_success:
   - mvn jacoco:report coveralls:report
