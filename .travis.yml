@@ -5,6 +5,8 @@ sudo: false
 # trusty is required for oraclejdk9
 dist: trusty
 
+jdk: openjdk14
+
 services:
   - docker
 
