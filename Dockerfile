@@ -14,10 +14,10 @@ ADD . /scrooge-api
 WORKDIR /scrooge-api
 
 # Run Maven build
-RUN mvn clean install
+RUN mvn clean install -DskipTests
 
 # Tests coverage executed on CI only
 ARG env="local"
-RUN if [ "$env" = "ci" ]; then mvn jacoco:report coveralls:report ; fi
+RUN if [ "$env" = "ci" ]; then mvn test && mvn jacoco:report coveralls:report ; fi
 
 ENTRYPOINT [ "java", "-jar", "target/scrooge-api.jar"]
