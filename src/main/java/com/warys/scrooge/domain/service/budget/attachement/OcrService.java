@@ -4,7 +4,6 @@ import com.warys.scrooge.domain.model.ocr.Receipt;
 import com.warys.scrooge.domain.model.user.Session;
 import com.warys.scrooge.infrastructure.exception.technical.TechnicalException;
 import com.warys.scrooge.infrastructure.spi.ocr.OCRClient;
-import net.sourceforge.tess4j.TesseractException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,7 +29,7 @@ public class OcrService {
             Path filepath = Paths.get("./", file.getOriginalFilename());
             file.transferTo(filepath);
             return ocrClient.extractReceipt(filepath.toAbsolutePath().toFile());
-        } catch (IOException | TesseractException e) {
+        } catch (IOException e) {
             throw new TechnicalException("could not get bytes", e);
         }
     }
