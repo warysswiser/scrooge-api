@@ -16,6 +16,8 @@ WORKDIR /scrooge-api
 # Run Maven build
 RUN mvn clean install
 
-ENTRYPOINT [ "java", "-jar", "target/scrooge-api.jar"]
+# Tests coverage executed on CI only
+ARG env="local"
+RUN if [ "$env" = "ci" ]; then mvn jacoco:report coveralls:report ; fi
 
-EXPOSE 8089
+ENTRYPOINT [ "java", "-jar", "target/scrooge-api.jar"]
