@@ -1,18 +1,16 @@
 package com.warys.scrooge.domain.common.util;
 
 import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
-
+@Slf4j
 public class BeanUtil {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BeanUtil.class);
     private static final String PROJECT_PACKAGE_NAME = "com.warys.scrooge";
 
     public static void copyBean(Object orig, Object dest) {
@@ -38,7 +36,7 @@ public class BeanUtil {
                 }
             }
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            LOGGER.error("Error occurred during mapping : {}", e.getMessage());
+            log.error("Error occurred during mapping : {}", e.getMessage());
         }
     }
 
@@ -53,7 +51,7 @@ public class BeanUtil {
                 copyBean(orig, newInstance);
             }
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            LOGGER.error("Error occurred during recursive call : {}", e.getMessage());
+            log.error("Error occurred during recursive call : {}", e.getMessage());
         }
     }
 
@@ -61,7 +59,7 @@ public class BeanUtil {
         try {
             BeanUtils.copyProperty(bean, name, value);
         } catch (InvocationTargetException | IllegalAccessException e) {
-            LOGGER.error("Error occurred during mapping : {}", e.getMessage());
+            log.error("Error occurred during mapping : {}", e.getMessage());
         }
     }
 }

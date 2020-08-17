@@ -16,7 +16,7 @@ import java.util.Objects;
 @Service
 public class OcrService {
 
-    private OCRClient ocrClient;
+    private final OCRClient ocrClient;
 
     @Autowired
     public OcrService(OCRClient ocrClient) {

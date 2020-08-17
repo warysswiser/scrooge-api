@@ -13,7 +13,7 @@ import com.warys.scrooge.infrastructure.spi.notifier.Notifier;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -25,9 +25,8 @@ import java.util.Optional;
 import static com.warys.scrooge.domain.common.util.Patcher.patch;
 
 @Service
+@Slf4j
 public class UserAuthenticationService implements AuthenticationService {
-
-    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(UserAuthenticationService.class);
 
     private final UserService publicUserService;
     private final UserRepository userRepository;
@@ -100,7 +99,7 @@ public class UserAuthenticationService implements AuthenticationService {
                 return Optional.of(userPayload);
             }
         } catch (JwtException e) {
-            logger.error("an error occurred", e);
+            log.error("an error occurred", e);
         }
         return Optional.empty();
     }

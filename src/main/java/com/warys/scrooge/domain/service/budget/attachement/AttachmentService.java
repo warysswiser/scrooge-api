@@ -1,15 +1,14 @@
 package com.warys.scrooge.domain.service.budget.attachement;
 
-import com.warys.scrooge.infrastructure.repository.mongo.entity.AttachmentDocument;
+import com.warys.scrooge.domain.exception.InconsistentElementException;
 import com.warys.scrooge.domain.model.builder.AttachmentBuilder;
 import com.warys.scrooge.domain.model.user.Session;
-import com.warys.scrooge.infrastructure.repository.mongo.AttachmentRepository;
 import com.warys.scrooge.infrastructure.exception.ApiException;
-import com.warys.scrooge.domain.exception.InconsistentElementException;
 import com.warys.scrooge.infrastructure.exception.technical.TechnicalException;
+import com.warys.scrooge.infrastructure.repository.mongo.AttachmentRepository;
+import com.warys.scrooge.infrastructure.repository.mongo.entity.AttachmentDocument;
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,7 +20,7 @@ import java.util.Objects;
 @Service
 public class AttachmentService implements CrudAttachmentService {
 
-    private AttachmentRepository attachmentRepository;
+    private final AttachmentRepository attachmentRepository;
 
     @Autowired
     public AttachmentService(AttachmentRepository attachmentRepository) {

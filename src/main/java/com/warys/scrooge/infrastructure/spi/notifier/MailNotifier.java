@@ -1,16 +1,16 @@
 package com.warys.scrooge.infrastructure.spi.notifier;
 
 import com.google.common.annotations.VisibleForTesting;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class MailNotifier implements Notifier {
 
-    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(MailNotifier.class);
     private static final String SUBSCRIPTION_MESSAGE = "Thanks for you subscription in scrooge";
     private final JavaMailSender emailSender;
     @Value("${app.feature.emailer.enabled}")
@@ -21,7 +21,7 @@ public class MailNotifier implements Notifier {
     }
 
     public void sendSimpleMessage(String to, String subject, String text) {
-        logger.info("Sending message {} to {} with subject {}", text, to, subject);
+        log.info("Sending message {} to {} with subject {}", text, to, subject);
         if (isEnables) {
             var message = new SimpleMailMessage();
             message.setTo(to);

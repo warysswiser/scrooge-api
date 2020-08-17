@@ -1,14 +1,14 @@
 package com.warys.scrooge.infrastructure.spi.ocr;
 
+import lombok.extern.slf4j.Slf4j;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
+@Slf4j
 public enum ImagePreProcessor implements Function<Mat, Mat> {
 
     RESIZE {
@@ -48,7 +48,5 @@ public enum ImagePreProcessor implements Function<Mat, Mat> {
         }
     };
 
-    private static final Logger logger = LoggerFactory.getLogger(ImagePreProcessor.class);
-
-    private static final BiConsumer<String, Mat> PROCESSING_LOG = (name, source) -> logger.debug("Applying {} processing on {}", name, source);
+    private static final BiConsumer<String, Mat> PROCESSING_LOG = (name, source) -> log.debug("Applying {} processing on {}", name, source);
 }
