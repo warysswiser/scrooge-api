@@ -15,33 +15,36 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Disabled
 class TesseractClientShould {
+
+    public static final String VALID_FILE_PATH = "src/test/resources/test9.jpg";
+
     @Test
     void extract_data() throws TesseractException {
         final TesseractClient client = getTesseractClient();
-        final File file = Path.of("src/test/resources/test9.jpg").toAbsolutePath().toFile();
+        final File file = Path.of(VALID_FILE_PATH).toAbsolutePath().toFile();
         final Receipt expectedOcrData = client.extractReceipt(file);
-        assertThat(expectedOcrData).isNotNull();
-        assertThat(expectedOcrData).hasNoNullFieldsOrProperties();
+
+        assertThat(expectedOcrData)
+                .isNotNull()
+                .hasNoNullFieldsOrProperties();
     }
 
 
     @Test
     void throw_Error_when_tesseract_is_not_well_initializes() {
         ITesseract tesseract = new Tesseract();
-        assertThrows(Error.class, () -> {
-            final TesseractClient client = new TesseractClient(tesseract);
-            final File file = Path.of("src/test/resources/test9.jpg").toAbsolutePath().toFile();
-            client.extractReceipt(file);
-        });
+        final TesseractClient client = new TesseractClient(tesseract);
+        final File file = Path.of(VALID_FILE_PATH).toAbsolutePath().toFile();
+
+        assertThrows(Error.class, () -> client.extractReceipt(file));
     }
 
     @Test
     void throw_IllegalStateException_input_file_does_not_exists() {
-        assertThrows(IllegalStateException.class, () -> {
-            final TesseractClient client = getTesseractClient();
-            final File file = Path.of("src/test/resources/bad.jpg").toAbsolutePath().toFile();
-            client.extractReceipt(file);
-        });
+        final TesseractClient client = getTesseractClient();
+        final File file = Path.of("src/test/resources/bad.jpg").toAbsolutePath().toFile();
+
+        assertThrows(IllegalStateException.class, () -> client.extractReceipt(file));
     }
 
     private TesseractClient getTesseractClient() {
