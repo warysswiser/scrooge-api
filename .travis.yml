@@ -14,12 +14,15 @@ before_install:
 addons:
   apt:
     update: true
+
 jobs:
   include:
     - stage: build
       script:
         - mvn clean install -DskipTests
     - stage: test
+      script:
         - mvn verify
     - stage: coverage
+      script:
         - mvn jacoco:report coveralls:report
