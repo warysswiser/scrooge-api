@@ -19,6 +19,9 @@ ARG env="local"
 RUN if [ "$env" != "ci" ]; then mvn clean install -DskipTests ; fi
 
 # Tests coverage executed on CI only
-RUN if [ "$env" = "ci" ]; then mvn clean install && mvn jacoco:report coveralls:report ; fi
+RUN if [ "$env" = "ci" ]; then \
+        mvn clean install && \
+        mvn jacoco:report coveralls:report -Dbranch=master -DrepoToken=xXV5TGSWIU0dFFlnCB68qn6wvTr4Mjfpf; \
+    fi
 
 ENTRYPOINT [ "java", "-jar", "target/scrooge-api.jar"]
