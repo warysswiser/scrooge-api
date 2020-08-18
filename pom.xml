@@ -240,7 +240,6 @@
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <version>${coveralls-maven-plugin.version}</version>
                 <configuration>
-                    <repoToken>xXV5TGSWIU0dFFlnCB68qn6wvTr4Mjfpf</repoToken>
                     <branch>master</branch>
                 </configuration>
                 <dependencies>
