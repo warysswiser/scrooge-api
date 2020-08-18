@@ -13,14 +13,11 @@ jobs:
     - stage: build project
       script:
         - mvn clean install -DskipTests
-    - stage: test and verify
+    - stage: verify and generate coverage reporte
       before_install:
         - sudo apt-get update
         - sudo apt-get install -y tesseract-ocr
         - sudo apt-get install -y tesseract-ocr-eng
         - sudo apt-get install -y tesseract-ocr-fra
       script:
-        - mvn verify
-    - stage: generate coverage reporte
-      script:
-        - mvn jacoco:report coveralls:report
+        - mvn verify jacoco:report coveralls:report
