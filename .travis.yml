@@ -10,11 +10,17 @@ jdk: openjdk14
 services:
   - docker
 
-install: true
+before_install:
+  - sudo apt-get tesseract-ocr
+  - sudo apt-get tesseract-ocr-eng
+  - sudo apt-get tesseract-ocr-fra
 
 jobs:
   include:
-    - stage: build on docker
+    - stage: build
       script:
-        - docker build -t scrooge-api --build-arg env=ci .
-        - mvn jacoco:report coveralls:report -Dbranch=master
+        - mvn clean install -DskipTests
+    - stage: test
+        - mvn verify
+    - stage: coverage
+        - mvn jacoco:report coveralls:report
