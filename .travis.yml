@@ -17,12 +17,12 @@ addons:
 
 jobs:
   include:
-    - stage: build
+    - stage: build project
       script:
         - mvn clean install -DskipTests
-    - stage: test
+    - stage: test and verify
       script:
         - mvn verify
-    - stage: coverage
+    - stage: generate coverage reporte
       script:
         - mvn jacoco:report coveralls:report
