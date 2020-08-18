@@ -17,3 +17,4 @@ jobs:
     - stage: build on docker
       script:
         - docker build -t scrooge-api --build-arg env=ci .
+        - mvn jacoco:report coveralls:report -Dbranch=master
