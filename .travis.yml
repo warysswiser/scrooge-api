@@ -7,9 +7,9 @@ jdk: openjdk14
 
 before_install:
   - sudo apt-get update
-  - sudo apt-get tesseract-ocr
-  - sudo apt-get tesseract-ocr-eng
-  - sudo apt-get tesseract-ocr-fra
+  - sudo apt-get install -y tesseract-ocr
+  - sudo apt-get install -y tesseract-ocr-eng
+  - sudo apt-get install -y tesseract-ocr-fra
 
 addons:
   apt:
