@@ -1,6 +1,3 @@
-# trusty is required for oraclejdk9
-dist: trusty
-
 language: java
 
 jdk: openjdk14
@@ -19,7 +16,7 @@ jobs:
   include:
     - stage: build project
       script:
-        - mvn clean install -DskipTests
+        - mvn clean install jacoco:report coveralls:report
     - stage: test and verify
       script:
         - mvn verify
