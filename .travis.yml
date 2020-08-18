@@ -7,9 +7,6 @@ dist: trusty
 
 jdk: openjdk14
 
-services:
-  - docker
-
 before_install:
   - sudo apt-get tesseract-ocr
   - sudo apt-get tesseract-ocr-eng
