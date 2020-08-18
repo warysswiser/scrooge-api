@@ -295,6 +295,9 @@
                         <groupId>org.eluder.coveralls</groupId>
                         <artifactId>coveralls-maven-plugin</artifactId>
                         <version>${coveralls-maven-plugin.version}</version>
+                        <configuration>
+                            <branch>master</branch>
+                        </configuration>
                         <dependencies>
                             <dependency>
                                 <groupId>javax.xml.bind</groupId>
