@@ -7,18 +7,14 @@ RUN apt-get update && apt-get -y install \
     tesseract-ocr \
     tesseract-ocr-eng \
     tesseract-ocr-fra
-#    tesseract-ocr-all
 
 ADD . /scrooge-api
 
 WORKDIR /scrooge-api
 
-ARG env="local"
+ARG env="prod"
 
 # Run Maven build
-RUN if [ "$env" != "ci" ]; then mvn clean install -DskipTests ; fi
-
-# Tests coverage executed on CI only
-RUN if [ "$env" = "ci" ]; then mvn clean install && mvn jacoco:report coveralls:report -Dbranch=master; fi
+RUN if [ "$env" = "ic" ]; then mvn clean install; else mvn clean install -DskipTests; fi
 
 ENTRYPOINT [ "java", "-jar", "target/scrooge-api.jar"]
