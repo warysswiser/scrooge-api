@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @Setter
 public class LoginRequest {
     @NotNull
-    @Email
+    @Email(message = "Email should be valid")
     private String email;
     @Size(min = 8, max = 100, message = "password must be between 8 and 100 characters")
     private String password;

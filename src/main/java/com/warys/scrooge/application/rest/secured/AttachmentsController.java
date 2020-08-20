@@ -22,7 +22,7 @@ public final class AttachmentsController {
     @PostMapping("")
     @ResponseBody
     public ResponseEntity<String> postAttachment(
-            @AuthenticationPrincipal final User me, @NotNull @RequestParam("file") MultipartFile file) throws ApiException {
+            @AuthenticationPrincipal final User me, @RequestParam("file") @NotNull MultipartFile file) throws ApiException {
         String attachmentId = attachmentService.createAttachment(me, file);
         return new ResponseEntity<>(attachmentId, HttpStatus.CREATED);
     }

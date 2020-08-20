@@ -11,6 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -34,26 +35,26 @@ public final class OutflowsController {
 
     @PostMapping("")
     public ResponseEntity<OutflowDocument> createOutflow
-            (@AuthenticationPrincipal final Session me, @Valid @RequestBody final OutflowDocument newOutflow) {
+            (@AuthenticationPrincipal final Session me, @RequestBody @Valid final OutflowDocument newOutflow) {
         return new ResponseEntity<>(outflowService.create(me, newOutflow), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<OutflowDocument> updateOutflow
-            (@AuthenticationPrincipal final Session me, @PathVariable String id, @Valid @RequestBody final OutflowDocument newOutflow) {
+            (@AuthenticationPrincipal final Session me, @PathVariable String id, @RequestBody @Valid final OutflowDocument newOutflow) {
         return new ResponseEntity<>(outflowService.update(me, id, newOutflow), HttpStatus.OK);
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<OutflowDocument> partialUpdateOutflow
-            (@AuthenticationPrincipal final Session me, @PathVariable String id, @Valid @RequestBody final OutflowDocument partialNewOutflow) throws ApiException {
+            (@AuthenticationPrincipal final Session me, @PathVariable String id, @RequestBody @Valid final OutflowDocument partialNewOutflow) throws ApiException {
         OutflowDocument updatedOutflow = outflowService.partialUpdate(me, id, partialNewOutflow);
         return new ResponseEntity<>(updatedOutflow, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<OutflowDocument> deleteResource
-            (@AuthenticationPrincipal final Session me, @NotNull @PathVariable String id) throws ApiException {
+            (@AuthenticationPrincipal final Session me, @PathVariable String id) throws ApiException {
         outflowService.remove(me, id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

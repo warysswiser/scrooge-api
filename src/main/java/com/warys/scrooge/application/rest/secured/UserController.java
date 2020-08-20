@@ -27,20 +27,20 @@ public final class UserController {
 
     @PutMapping("")
     public ResponseEntity<User> updateMe
-            (@AuthenticationPrincipal final Session user, @Valid @RequestBody final User newUser) throws ApiException {
+            (@AuthenticationPrincipal final Session user, @RequestBody @Valid final User newUser) throws ApiException {
         return new ResponseEntity<>(authenticatedUserService.updateUser(user, newUser), HttpStatus.OK);
     }
 
     @PatchMapping("")
     public ResponseEntity<User> partialUpdateMe
-            (@AuthenticationPrincipal final Session user, @RequestBody final User partialNewUser) throws ApiException {
+            (@AuthenticationPrincipal final Session user, @RequestBody @Valid final User partialNewUser) throws ApiException {
         User updatedUser = authenticatedUserService.partialUpdateUser(user, partialNewUser);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
     @PutMapping("/password")
     public ResponseEntity<String> updatePassword
-            (@AuthenticationPrincipal final Session user, @RequestBody final UpdatePassword password) throws ApiException {
+            (@AuthenticationPrincipal final Session user, @RequestBody @Valid final UpdatePassword password) throws ApiException {
         authenticatedUserService.updatePassword(user, password);
         return new ResponseEntity<>("Password updated", HttpStatus.OK);
     }

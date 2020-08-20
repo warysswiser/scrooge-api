@@ -125,7 +125,19 @@ class UserControllerShould extends SecuredTest {
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.timestamp", notNullValue()))
-                .andExpect(jsonPath("$.exception", is("InconsistentElementException")))
+                .andExpect(jsonPath("$.exception", is("MethodArgumentNotValidException")))
                 .andExpect(jsonPath("$.path", is("uri=/me/password")));
+    }
+
+    @Test
+    void not_update_password_when_invalid_password() throws Exception {
+        UpdatePassword request = new UpdatePassword("abc");
+
+        this.mockMvc.perform(
+                put(RESOURCE + "/password")
+                        .header("Authorization", "Bearer " + VALID_TOKEN)
+                        .content(om.writeValueAsString(request))
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 }

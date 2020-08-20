@@ -24,13 +24,13 @@ public final class PublicUsersController {
     private final AuthenticationService authentication;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) throws ApiException {
+    public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest request) throws ApiException {
         LoginResponse loginResponse = authentication.login(request.getEmail(), request.getPassword());
         return new ResponseEntity<>(loginResponse, HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/register")
-    public ResponseEntity<RegisterResponse> register(@Valid @RequestBody RegisterRequest request) throws ApiException {
+    public ResponseEntity<RegisterResponse> register(@RequestBody @Valid RegisterRequest request) throws ApiException {
         return new ResponseEntity<>(authentication.register(request), HttpStatus.CREATED);
     }
 }

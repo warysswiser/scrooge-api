@@ -23,7 +23,7 @@ public final class OcrController {
     @PostMapping("receipt")
     @ResponseBody
     public ResponseEntity<Receipt> getReceiptFromImage(
-            @AuthenticationPrincipal final User me, @NotNull @RequestParam("file") MultipartFile file) throws TechnicalException {
+            @AuthenticationPrincipal final User me, @RequestParam("file") @NotNull MultipartFile file) throws TechnicalException {
         Receipt attachmentId = ocrService.getReceipt(me, file);
         return new ResponseEntity<>(attachmentId, HttpStatus.CREATED);
     }

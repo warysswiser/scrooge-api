@@ -112,7 +112,7 @@ class PublicUsersControllerShould {
                 .andDo(print()).andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.timestamp", notNullValue()))
                 .andExpect(jsonPath("$.message", is("[email] : must not be null; ")))
-                .andExpect(jsonPath("$.exception", is("InconsistentElementException")))
+                .andExpect(jsonPath("$.exception", is("MethodArgumentNotValidException")))
                 .andExpect(jsonPath("$.path", is("uri=/public/register")));
     }
 
