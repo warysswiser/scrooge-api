@@ -48,13 +48,13 @@ public class UserAuthenticationService implements AuthenticationService {
 
         String token = tokenProvider.generateFrom(user);
 
-        return LoginResponse
-                .builder()
-                .token(token)
-                .id(user.getId())
-                .username(user.getUsername())
-                .email(user.getEmail())
-                .build();
+        var response = new LoginResponse();
+        response.setToken(token);
+        response.setId(user.getId());
+        response.setUsername(user.getUsername());
+        response.setEmail(user.getEmail());
+
+        return response;
     }
 
     @Override

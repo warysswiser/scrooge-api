@@ -4,8 +4,8 @@ import lombok.*;
 
 import java.io.Serializable;
 
-@Data
-@Builder
+@Getter
+@Setter
 public class LoginResponse implements Serializable {
     private String token;
     private String id;

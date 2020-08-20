@@ -9,7 +9,6 @@ import java.util.Date;
 
 @AllArgsConstructor
 @Getter
-@Setter
 public class ErrorResponse implements Serializable {
     private Date timestamp;
     private String message;

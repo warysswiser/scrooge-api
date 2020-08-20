@@ -22,6 +22,11 @@ public class UserDocument extends GenericModel implements Session {
     private boolean credentialsNonExpired = true;
     private boolean enabled = true;
 
+    @Override
+    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+
+    }
+
     public void setAccountNonExpired(boolean accountNonExpired) {
         this.accountNonExpired = accountNonExpired;
     }

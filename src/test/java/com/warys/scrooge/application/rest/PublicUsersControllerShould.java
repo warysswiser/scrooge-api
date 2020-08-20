@@ -67,9 +67,12 @@ class PublicUsersControllerShould {
 
     @Test
     void perform_login() throws Exception {
+        final LoginRequest request = new LoginRequest();
+        request.setEmail(EMAIL);
+        request.setPassword(PASSWORD);
         this.mockMvc.perform(
                 post("/public/login")
-                        .content(om.writeValueAsString(new LoginRequest(EMAIL, PASSWORD)))
+                        .content(om.writeValueAsString(request))
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.id", is(USER_ID)))

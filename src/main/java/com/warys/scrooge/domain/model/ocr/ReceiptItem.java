@@ -8,9 +8,7 @@ import lombok.ToString;
 import java.io.Serializable;
 
 @AllArgsConstructor
-@ToString
 @Getter
-@Setter
 public class ReceiptItem implements Serializable {
 
     private String label;

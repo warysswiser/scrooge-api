@@ -1,6 +1,7 @@
 package com.warys.scrooge.domain.service.user;
 
 import com.warys.scrooge.domain.exception.DuplicatedInformationException;
+import com.warys.scrooge.domain.exception.InconsistentElementException;
 import com.warys.scrooge.domain.exception.auth.InvalidCredentialsException;
 import com.warys.scrooge.domain.model.builder.UserBuilder;
 import com.warys.scrooge.domain.model.user.Session;
@@ -109,6 +110,13 @@ class PublicUserServiceShould {
         assertThatExceptionOfType(DuplicatedInformationException.class)
                 .isThrownBy(() ->
                         tested.checkUserEmail("email"));
+    }
+
+    @Test
+    void should_throw_InconsistentElementException_when_is_null_for_check() {
+        assertThatExceptionOfType(InconsistentElementException.class)
+                .isThrownBy(() ->
+                        tested.checkUserEmail(null));
     }
 
     @Test

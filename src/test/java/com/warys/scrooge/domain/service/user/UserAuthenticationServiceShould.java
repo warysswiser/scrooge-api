@@ -33,7 +33,6 @@ class UserAuthenticationServiceShould {
     private Notifier mailNotifier = mock(Notifier.class);
     private TokenProvider tokenProvider = mock(TokenProvider.class);
     private AuthenticationService tested = new UserAuthenticationService(userService, userRepository, mailNotifier, tokenProvider);
-    private static final RegisterRequest VALID_COMMAND = RegisterRequest.builder().email(VALID_EMAIL).build();
 
     private static final UserDocument VALID_USER = new UserBuilder().with(
             o -> {
@@ -79,9 +78,15 @@ class UserAuthenticationServiceShould {
     @Test
     void register() throws ApiException {
 
+        RegisterRequest request = new RegisterRequest();
+        request.setEmail(VALID_EMAIL);
+        request.setFirstName("first name");
+        request.setLastName("last name");
+        request.setUsername("username");
+
         when(userRepository.insert(any(UserDocument.class))).thenReturn(VALID_USER);
 
-        final RegisterResponse actual = tested.register(VALID_COMMAND);
+        final RegisterResponse actual = tested.register(request);
 
         verify(mailNotifier).sendSubscriptionMessage(VALID_EMAIL);
         assertThat(actual).isEqualToComparingFieldByField(VALID_USER);

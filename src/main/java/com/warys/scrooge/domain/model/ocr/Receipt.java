@@ -68,52 +68,26 @@ public class Receipt implements Serializable {
                 final Matcher amountMatcher = AMOUNT_PATTERN.matcher(group);
 
                 //amountMatcher.
-
                 while (amountMatcher.find()) {
                     if (!x.contains(total + "")) {
                         final Matcher multiMatcher = Pattern.compile("^\\d{1,2}(x)").matcher(x);
                         String amount;
                         String label;
-                        if (multiMatcher.find()) {
-                            final String group1 = multiMatcher.group();
-                            final Matcher matcher = Pattern.compile("\\d").matcher(group1);
-                            matcher.find();
-                            final int x1 = Integer.parseInt(matcher.group());
-                            for (int i = 0; i < x1; i++) {
-                                amount = amountMatcher.group();
-                                label = prev.toString()
-                                        .replace(" 11", "")
-                                        .replace("«", "")
-                                        .replace("- ", "")
-                                        .replace("À ", "")
-                                        .replace(":", "")
-                                        .replace("[", "")
-                                        .replace("]", "")
-                                        .replace(";", "")
-                                        .replace("\\s+$", "")
-                                        .replace("^\\s+", "");
-                                items.add(new ReceiptItem(label, Double.parseDouble(amount
-                                        .replace("€", "")
-                                        .replace(",", "."))));
-                            }
-                            return;
-                        } else {
-                            amount = amountMatcher.group();
-                            label = group.replaceFirst(amount, "")
-                                    .replace(" 11", "")
-                                    .replace("«", "")
-                                    .replace("- ", "")
-                                    .replace("À ", "")
-                                    .replace(":", "")
-                                    .replace("[", "")
-                                    .replace("]", "")
-                                    .replace(";", "")
-                                    .replace("\\s+$", "")
-                                    .replace("^\\s+", "");
-                            items.add(new ReceiptItem(label, Double.parseDouble(amount
-                                    .replace("€", "")
-                                    .replace(",", "."))));
-                        }
+                        amount = amountMatcher.group();
+                        label = group.replaceFirst(amount, "")
+                                .replace(" 11", "")
+                                .replace("«", "")
+                                .replace("- ", "")
+                                .replace("À ", "")
+                                .replace(":", "")
+                                .replace("[", "")
+                                .replace("]", "")
+                                .replace(";", "")
+                                .replace("\\s+$", "")
+                                .replace("^\\s+", "");
+                        items.add(new ReceiptItem(label, Double.parseDouble(amount
+                                .replace("€", "")
+                                .replace(",", "."))));
                     }
                 }
             }

@@ -10,9 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -23,14 +22,16 @@ import static org.mockito.Mockito.when;
 
 class AttachmentServiceShould {
 
-    private static final String CURRENT_USER_ID = "my_current_user_id";
-    private static final Path ATTACHMENTS_DIR_PATH = Paths.get("src/test/resources/attachments");
-    private static final Path USER_DIR = ATTACHMENTS_DIR_PATH.resolve(CURRENT_USER_ID);
     private static final String ATTACHMENT_FILE_NAME = "attachment_1.png";
 
     private AttachmentRepository attachmentRepository = mock(AttachmentRepository.class);
     private CrudAttachmentService tested = new AttachmentService(attachmentRepository);
     private Session user = mock(Session.class);
+
+    @Test
+    void throws_UnsupportedOperationException_when_call_on_get_all() {
+        assertThrows(UnsupportedOperationException.class, () -> tested.getAll(user));
+    }
 
     @Test
     void throws_UnsupportedOperationException_when_call_on_retrieve() {
@@ -54,7 +55,6 @@ class AttachmentServiceShould {
 
     @Test
     void throws_UnsupportedOperationException_when_call_on_partialUpdate() {
-        assertThrows(UnsupportedOperationException.class, () -> tested.partialUpdate(user, "", null));
         assertThrows(UnsupportedOperationException.class, () -> tested.partialUpdate(user, "", null));
     }
 
@@ -97,5 +97,13 @@ class AttachmentServiceShould {
         final String attachmentId = tested.createAttachment(user, file);
 
         assertThat(attachmentId).isEqualTo(expectedAttachment.getId());
+    }
+
+    @Test
+    void throw_TechnicalException_when_IOException_occurred() throws IOException {
+        MockMultipartFile file = mock(MockMultipartFile.class);
+        when(file.getBytes()).thenThrow(IOException.class);
+
+        assertThrows(TechnicalException.class, () -> tested.createAttachment(user, file));
     }
 }
