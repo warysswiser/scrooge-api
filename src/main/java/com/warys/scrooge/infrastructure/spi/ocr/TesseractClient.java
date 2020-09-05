@@ -4,7 +4,6 @@ import com.warys.scrooge.domain.model.ocr.Receipt;
 import com.warys.scrooge.infrastructure.exception.technical.TechnicalException;
 import lombok.extern.slf4j.Slf4j;
 import net.sourceforge.tess4j.ITesseract;
-import net.sourceforge.tess4j.TesseractException;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -24,11 +23,12 @@ public class TesseractClient implements OCRClient {
         if (!source.exists()) {
             throw new IllegalStateException("File given for processing must exists");
         }
+
         final File image = ImagePreProcessing.execute(source);
         String rawData = "";
         try {
             rawData = delegate.doOCR(image);
-        } catch (TesseractException e) {
+        } catch (Exception e) {
             throw new TechnicalException("Error occurred on calling tesseract API", e);
         } finally {
             delete(source);
