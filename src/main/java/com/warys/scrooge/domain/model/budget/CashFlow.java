@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @Getter
@@ -17,6 +17,6 @@ public class CashFlow extends GenericModel {
     private String label;
     private double amount;
     private String frequency;
-    private LocalDateTime executionDate;
+    private LocalDate executionDate;
 
 }
