@@ -6,6 +6,7 @@ import com.warys.scrooge.application.command.response.LoginResponse;
 import com.warys.scrooge.application.command.response.RegisterResponse;
 import com.warys.scrooge.domain.service.user.AuthenticationService;
 import com.warys.scrooge.infrastructure.exception.ApiException;
+import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import javax.validation.Valid;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/public")
+@Api(description = "Public API for operations without authentication")
 public final class PublicUsersController {
 
     private final AuthenticationService authentication;
@@ -34,3 +36,4 @@ public final class PublicUsersController {
         return new ResponseEntity<>(authentication.register(request), HttpStatus.CREATED);
     }
 }
+

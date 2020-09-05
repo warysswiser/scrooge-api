@@ -5,6 +5,7 @@ import com.warys.scrooge.domain.model.user.User;
 import com.warys.scrooge.domain.model.user.Session;
 import com.warys.scrooge.domain.service.user.UserService;
 import com.warys.scrooge.infrastructure.exception.ApiException;
+import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import javax.validation.Valid;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/me")
+@Api(description = "API to manage users")
 public final class UserController {
 
     private final UserService authenticatedUserService;

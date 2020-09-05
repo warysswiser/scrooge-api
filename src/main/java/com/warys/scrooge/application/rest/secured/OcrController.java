@@ -4,6 +4,7 @@ import com.warys.scrooge.domain.model.ocr.Receipt;
 import com.warys.scrooge.domain.model.user.User;
 import com.warys.scrooge.domain.service.budget.attachement.OcrService;
 import com.warys.scrooge.infrastructure.exception.technical.TechnicalException;
+import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/me/ocr")
+@Api(description = "API allowing optical character recognition")
 public final class OcrController {
 
     private final OcrService ocrService;

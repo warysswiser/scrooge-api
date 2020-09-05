@@ -1,9 +1,10 @@
 package com.warys.scrooge.application.rest.secured;
 
-import com.warys.scrooge.infrastructure.repository.mongo.entity.InflowDocument;
 import com.warys.scrooge.domain.model.user.Session;
 import com.warys.scrooge.domain.service.budget.InflowService;
 import com.warys.scrooge.infrastructure.exception.ApiException;
+import com.warys.scrooge.infrastructure.repository.mongo.entity.InflowDocument;
+import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,12 +12,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @AllArgsConstructor
 @RestController
 @RequestMapping("/me/inflows")
+@Api(description = "API for cash entry operations")
 public final class InflowsController {
 
     private final InflowService inflowService;
