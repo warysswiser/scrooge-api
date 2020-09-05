@@ -8,10 +8,12 @@ import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @AllArgsConstructor
@@ -23,8 +25,9 @@ public final class InflowsController {
     private final InflowService inflowService;
 
     @GetMapping("")
-    public ResponseEntity<List<InflowDocument>> getAllInflows(@AuthenticationPrincipal final Session me) {
-        return new ResponseEntity<>(inflowService.getAll(me), HttpStatus.OK);
+    public ResponseEntity<List<InflowDocument>> getAllInflows(@AuthenticationPrincipal final Session me,
+                                                              @Nullable @RequestParam LocalDate from, @Nullable @RequestParam LocalDate to) {
+        return new ResponseEntity<>(inflowService.getPagedData(me, from, to), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
