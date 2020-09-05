@@ -14,11 +14,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -36,13 +38,13 @@ class OutflowControllerShould extends SecuredTest {
 
     @MockBean
     private OutflowRepository outflowRepository;
-    private OutflowDocument INFLOW;
+    private OutflowDocument OUTFLOW;
 
 
     @BeforeEach
     void setUp() {
         init();
-        INFLOW = new OutflowBuilder().with(o -> {
+        OUTFLOW = new OutflowBuilder().with(o -> {
             o.id = INFLOW_ID;
             o.label = "Salary";
             o.ownerId = USER_ID;
@@ -52,8 +54,11 @@ class OutflowControllerShould extends SecuredTest {
         }).build();
 
 
-        when(outflowRepository.findByOwnerId(USER_ID)).thenReturn(Optional.of(List.of(INFLOW)));
-        when(outflowRepository.findByIdAndOwnerId(INFLOW_ID, USER_ID)).thenReturn(Optional.of(INFLOW));
+        when(outflowRepository.findByOwnerId(USER_ID)).thenReturn(Optional.of(List.of(OUTFLOW)));
+        when(outflowRepository.findByIdAndOwnerId(INFLOW_ID, USER_ID)).thenReturn(Optional.of(OUTFLOW));
+        when(
+                outflowRepository.findByOwnerIdAndExecutionDateBetween(anyString(), any(LocalDate.class), any(LocalDate.class))
+        ).thenReturn(Optional.of(List.of(OUTFLOW)));
 
         when(outflowRepository.insert(any(OutflowDocument.class))).thenAnswer(i -> i.getArgument(0));
         when(outflowRepository.save(any(OutflowDocument.class))).thenAnswer(i -> i.getArgument(0));
@@ -65,14 +70,16 @@ class OutflowControllerShould extends SecuredTest {
         this.mockMvc.perform(
                 get(RESOURCE)
                         .header("Authorization", "Bearer " + VALID_TOKEN)
-                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
-                .andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id", is(INFLOW.getId())))
-                .andExpect(jsonPath("$[0].ownerId", is(INFLOW.getOwnerId())))
-                .andExpect(jsonPath("$[0].category", is(INFLOW.getCategory())))
-                .andExpect(jsonPath("$[0].label", is(INFLOW.getLabel())))
-                .andExpect(jsonPath("$[0].amount", is(INFLOW.getAmount())))
-                .andExpect(jsonPath("$[0].frequency", is(INFLOW.getFrequency())));
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
+                        .queryParam("from", "")
+        )
+        .andDo(print()).andExpect(status().isOk())
+        .andExpect(jsonPath("$[0].id", is(OUTFLOW.getId())))
+        .andExpect(jsonPath("$[0].ownerId", is(OUTFLOW.getOwnerId())))
+        .andExpect(jsonPath("$[0].category", is(OUTFLOW.getCategory())))
+        .andExpect(jsonPath("$[0].label", is(OUTFLOW.getLabel())))
+        .andExpect(jsonPath("$[0].amount", is(OUTFLOW.getAmount())))
+        .andExpect(jsonPath("$[0].frequency", is(OUTFLOW.getFrequency())));
     }
 
     @Test
@@ -82,12 +89,12 @@ class OutflowControllerShould extends SecuredTest {
                         .header("Authorization", "Bearer " + VALID_TOKEN)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(INFLOW.getId())))
-                .andExpect(jsonPath("$.ownerId", is(INFLOW.getOwnerId())))
-                .andExpect(jsonPath("$.category", is(INFLOW.getCategory())))
-                .andExpect(jsonPath("$.label", is(INFLOW.getLabel())))
-                .andExpect(jsonPath("$.amount", is(INFLOW.getAmount())))
-                .andExpect(jsonPath("$.frequency", is(INFLOW.getFrequency())));
+                .andExpect(jsonPath("$.id", is(OUTFLOW.getId())))
+                .andExpect(jsonPath("$.ownerId", is(OUTFLOW.getOwnerId())))
+                .andExpect(jsonPath("$.category", is(OUTFLOW.getCategory())))
+                .andExpect(jsonPath("$.label", is(OUTFLOW.getLabel())))
+                .andExpect(jsonPath("$.amount", is(OUTFLOW.getAmount())))
+                .andExpect(jsonPath("$.frequency", is(OUTFLOW.getFrequency())));
     }
 
     @Test
@@ -114,15 +121,15 @@ class OutflowControllerShould extends SecuredTest {
         this.mockMvc.perform(
                 post(RESOURCE)
                         .header("Authorization", "Bearer " + VALID_TOKEN)
-                        .content(om.writeValueAsString(INFLOW))
+                        .content(om.writeValueAsString(OUTFLOW))
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", is(INFLOW.getId())))
-                .andExpect(jsonPath("$.ownerId", is(INFLOW.getOwnerId())))
-                .andExpect(jsonPath("$.category", is(INFLOW.getCategory())))
-                .andExpect(jsonPath("$.label", is(INFLOW.getLabel())))
-                .andExpect(jsonPath("$.amount", is(INFLOW.getAmount())))
-                .andExpect(jsonPath("$.frequency", is(INFLOW.getFrequency())));
+                .andExpect(jsonPath("$.id", is(OUTFLOW.getId())))
+                .andExpect(jsonPath("$.ownerId", is(OUTFLOW.getOwnerId())))
+                .andExpect(jsonPath("$.category", is(OUTFLOW.getCategory())))
+                .andExpect(jsonPath("$.label", is(OUTFLOW.getLabel())))
+                .andExpect(jsonPath("$.amount", is(OUTFLOW.getAmount())))
+                .andExpect(jsonPath("$.frequency", is(OUTFLOW.getFrequency())));
     }
 
 
@@ -139,8 +146,8 @@ class OutflowControllerShould extends SecuredTest {
                         .content(om.writeValueAsString(outflowToUpdate))
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(INFLOW.getId())))
-                .andExpect(jsonPath("$.ownerId", is(INFLOW.getOwnerId())))
+                .andExpect(jsonPath("$.id", is(OUTFLOW.getId())))
+                .andExpect(jsonPath("$.ownerId", is(OUTFLOW.getOwnerId())))
                 .andExpect(jsonPath("$.label", is(outflowToUpdate.getLabel())))
                 .andExpect(jsonPath("$.amount", is(outflowToUpdate.getAmount())));
     }
@@ -158,12 +165,12 @@ class OutflowControllerShould extends SecuredTest {
                         .content(om.writeValueAsString(outflowToUpdate))
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(INFLOW.getId())))
-                .andExpect(jsonPath("$.ownerId", is(INFLOW.getOwnerId())))
-                .andExpect(jsonPath("$.category", is(INFLOW.getCategory())))
+                .andExpect(jsonPath("$.id", is(OUTFLOW.getId())))
+                .andExpect(jsonPath("$.ownerId", is(OUTFLOW.getOwnerId())))
+                .andExpect(jsonPath("$.category", is(OUTFLOW.getCategory())))
                 .andExpect(jsonPath("$.label", is(outflowToUpdate.getLabel())))
                 .andExpect(jsonPath("$.amount", is(outflowToUpdate.getAmount())))
-                .andExpect(jsonPath("$.frequency", is(INFLOW.getFrequency())));
+                .andExpect(jsonPath("$.frequency", is(OUTFLOW.getFrequency())));
     }
 
     @Test
@@ -171,7 +178,7 @@ class OutflowControllerShould extends SecuredTest {
         this.mockMvc.perform(
                 post(RESOURCE + "/" + "INVALID_URI")
                         .header("Authorization", "Bearer " + VALID_TOKEN)
-                        .content(om.writeValueAsString(INFLOW))
+                        .content(om.writeValueAsString(OUTFLOW))
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isMethodNotAllowed());
     }

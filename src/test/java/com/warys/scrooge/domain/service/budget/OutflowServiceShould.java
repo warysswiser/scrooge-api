@@ -9,6 +9,7 @@ import com.warys.scrooge.infrastructure.repository.mongo.entity.OutflowDocument;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -143,6 +144,43 @@ class OutflowServiceShould {
         when(outflowRepository.findByOwnerId(anyString())).thenReturn(Optional.of(expected));
 
         final List<OutflowDocument> actual = tested.getAll(user);
+
+        assertThat(actual).hasSameElementsAs(expected);
+    }
+
+    @Test
+    void get_paged_outflow_for_user_with_valid_dates() {
+        final OutflowDocument outflow = new OutflowBuilder().with(o -> {
+            o.id = INFLOW_ID;
+            o.label = "new a name";
+            o.ownerId = CURRENT_USER_ID;
+        }).build();
+
+        final LocalDate from = LocalDate.of(2020, 8, 23);
+        final LocalDate to = LocalDate.of(2020, 9, 23);
+        final List<OutflowDocument> expected = List.of(outflow);
+
+        when(user.getId()).thenReturn(CURRENT_USER_ID);
+        when(outflowRepository.findByOwnerIdAndExecutionDateBetween(CURRENT_USER_ID, from, to)).thenReturn(Optional.of(expected));
+
+        final List<OutflowDocument> actual = tested.getPagedData(user, from, to);
+
+        assertThat(actual).hasSameElementsAs(expected);
+    }
+
+    @Test
+    void get_paged_outflow_for_user_with_null_dates() {
+        final OutflowDocument outflow = new OutflowBuilder().with(o -> {
+            o.id = INFLOW_ID;
+            o.label = "new a name";
+            o.ownerId = CURRENT_USER_ID;
+        }).build();
+        final List<OutflowDocument> expected = List.of(outflow);
+        when(user.getId()).thenReturn(CURRENT_USER_ID);
+        when(outflowRepository.findByOwnerIdAndExecutionDateBetween(anyString(), any(LocalDate.class), any(LocalDate.class)))
+                .thenReturn(Optional.of(expected));
+
+        final List<OutflowDocument> actual = tested.getPagedData(user, null, null);
 
         assertThat(actual).hasSameElementsAs(expected);
     }

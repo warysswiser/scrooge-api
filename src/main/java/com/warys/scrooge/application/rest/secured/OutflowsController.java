@@ -5,13 +5,16 @@ import com.warys.scrooge.domain.service.budget.OutflowService;
 import com.warys.scrooge.infrastructure.exception.ApiException;
 import com.warys.scrooge.infrastructure.repository.mongo.entity.OutflowDocument;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @AllArgsConstructor
@@ -23,8 +26,10 @@ public final class OutflowsController {
     private final OutflowService outflowService;
 
     @GetMapping("")
-    public ResponseEntity<List<OutflowDocument>> getAllOutflows(@AuthenticationPrincipal final Session me) {
-        return new ResponseEntity<>(outflowService.getAll(me), HttpStatus.OK);
+    @ApiOperation("Returns all user'entry flow. By default, we return the current month movements.")
+    public ResponseEntity<List<OutflowDocument>> getAllOutflows(@AuthenticationPrincipal final Session me,
+                                                                @Nullable @RequestParam LocalDate from, @Nullable @RequestParam LocalDate to) {
+        return new ResponseEntity<>(outflowService.getPagedData(me, from, to), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

@@ -1,23 +1,27 @@
 package com.warys.scrooge.domain.service.budget;
 
-import com.warys.scrooge.infrastructure.repository.mongo.entity.OutflowDocument;
-import com.warys.scrooge.domain.model.user.Session;
-import com.warys.scrooge.infrastructure.repository.mongo.OutflowRepository;
-import com.warys.scrooge.domain.service.MyCrudService;
-import com.warys.scrooge.infrastructure.exception.ApiException;
 import com.warys.scrooge.domain.exception.ElementNotFoundException;
+import com.warys.scrooge.domain.model.user.Session;
+import com.warys.scrooge.domain.service.MyCrudService;
+import com.warys.scrooge.domain.service.Pageable;
+import com.warys.scrooge.infrastructure.exception.ApiException;
+import com.warys.scrooge.infrastructure.repository.mongo.OutflowRepository;
+import com.warys.scrooge.infrastructure.repository.mongo.entity.OutflowDocument;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
+import static com.warys.scrooge.domain.common.util.DateAdjuster.adjustedFrom;
+import static com.warys.scrooge.domain.common.util.DateAdjuster.adjustedTo;
 import static com.warys.scrooge.domain.common.util.Patcher.patch;
 import static java.util.Objects.requireNonNull;
 
 @AllArgsConstructor
 @Service
-public class OutflowService implements MyCrudService<OutflowDocument, OutflowDocument> {
+public class OutflowService implements MyCrudService<OutflowDocument, OutflowDocument>, Pageable<LocalDate, OutflowDocument> {
 
     private final OutflowRepository outflowRepository;
 
@@ -64,5 +68,13 @@ public class OutflowService implements MyCrudService<OutflowDocument, OutflowDoc
         OutflowDocument budgetToUpdate = retrieve(me, outflowId);
         patch(partialPayload, budgetToUpdate);
         return outflowRepository.save(budgetToUpdate);
+    }
+
+    @Override
+    public List<OutflowDocument> getPagedData(Session me, LocalDate from, LocalDate to) {
+        final LocalDate adjustedFrom = adjustedFrom(from);
+        return outflowRepository
+                .findByOwnerIdAndExecutionDateBetween(me.getId(), adjustedFrom, adjustedTo(adjustedFrom, to))
+                .orElse(Collections.emptyList());
     }
 }

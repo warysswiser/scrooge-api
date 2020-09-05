@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
@@ -17,5 +17,6 @@ public class CashFlow extends GenericModel {
     private String label;
     private double amount;
     private String frequency;
+    private LocalDateTime executionDate;
 
 }
