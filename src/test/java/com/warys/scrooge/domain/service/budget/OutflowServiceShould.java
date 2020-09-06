@@ -161,7 +161,7 @@ class OutflowServiceShould {
         final List<OutflowDocument> expected = List.of(outflow);
 
         when(user.getId()).thenReturn(CURRENT_USER_ID);
-        when(outflowRepository.findByOwnerIdAndCreationDateBetween(CURRENT_USER_ID, from, to)).thenReturn(Optional.of(expected));
+        when(outflowRepository.findByOwnerIdAndExecutionDateBetween(CURRENT_USER_ID, from, to)).thenReturn(Optional.of(expected));
 
         final List<OutflowDocument> actual = tested.getPagedData(user, from, to);
 
@@ -177,7 +177,7 @@ class OutflowServiceShould {
         }).build();
         final List<OutflowDocument> expected = List.of(outflow);
         when(user.getId()).thenReturn(CURRENT_USER_ID);
-        when(outflowRepository.findByOwnerIdAndCreationDateBetween(anyString(), any(LocalDate.class), any(LocalDate.class)))
+        when(outflowRepository.findByOwnerIdAndExecutionDateBetween(anyString(), any(LocalDate.class), any(LocalDate.class)))
                 .thenReturn(Optional.of(expected));
 
         final List<OutflowDocument> actual = tested.getPagedData(user, null, null);

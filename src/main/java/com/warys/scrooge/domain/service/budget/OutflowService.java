@@ -75,7 +75,7 @@ public class OutflowService implements MyCrudService<OutflowDocument, OutflowDoc
         final LocalDate adjustedFrom = adjustedFrom(from);
         final LocalDate to1 = adjustedTo(adjustedFrom, to);
         return outflowRepository
-                .findByOwnerIdAndCreationDateBetween(me.getId(), adjustedFrom, to1)
+                .findByOwnerIdAndExecutionDateBetween(me.getId(), adjustedFrom, to1)
                 .orElse(Collections.emptyList());
     }
 }
