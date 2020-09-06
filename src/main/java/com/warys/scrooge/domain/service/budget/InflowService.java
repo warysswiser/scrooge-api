@@ -74,7 +74,7 @@ public class InflowService implements MyCrudService<InflowDocument, InflowDocume
     public List<InflowDocument> getPagedData(Session me, LocalDate from, LocalDate to) {
         final LocalDate adjustedFrom = adjustedFrom(from);
         return inflowRepository
-                .findByOwnerIdAndExecutionDateBetween(me.getId(), adjustedFrom, adjustedTo(adjustedFrom, to))
+                .findByOwnerIdAndExecutionDateGreaterThanEqualAndExecutionDateLessThanEqual(me.getId(), adjustedFrom, adjustedTo(adjustedFrom, to))
                 .orElse(Collections.emptyList());
     }
 }

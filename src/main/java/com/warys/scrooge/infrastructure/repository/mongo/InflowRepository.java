@@ -11,7 +11,7 @@ public interface InflowRepository extends MongoRepository<InflowDocument, String
 
     Optional<List<InflowDocument>> findByOwnerId(String user);
 
-    Optional<List<InflowDocument>> findByOwnerIdAndExecutionDateBetween(String user, LocalDate from, LocalDate to);
+    Optional<List<InflowDocument>> findByOwnerIdAndExecutionDateGreaterThanEqualAndExecutionDateLessThanEqual(String user, LocalDate from, LocalDate to);
 
     Optional<InflowDocument> findByIdAndOwnerId(String itemId, String id);
 }
