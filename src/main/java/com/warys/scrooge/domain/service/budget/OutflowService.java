@@ -73,8 +73,9 @@ public class OutflowService implements MyCrudService<OutflowDocument, OutflowDoc
     @Override
     public List<OutflowDocument> getPagedData(Session me, LocalDate from, LocalDate to) {
         final LocalDate adjustedFrom = adjustedFrom(from);
+        final LocalDate to1 = adjustedTo(adjustedFrom, to);
         return outflowRepository
-                .findByOwnerIdAndExecutionDateBetween(me.getId(), adjustedFrom, adjustedTo(adjustedFrom, to))
+                .findByOwnerIdAndCreationDateBetween(me.getId(), adjustedFrom, to1)
                 .orElse(Collections.emptyList());
     }
 }
