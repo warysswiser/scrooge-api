@@ -11,7 +11,7 @@ public interface OutflowRepository extends MongoRepository<OutflowDocument, Stri
 
     Optional<List<OutflowDocument>> findByOwnerId(String user);
 
-    Optional<List<OutflowDocument>> findByOwnerIdAndExecutionDateGreaterThanEqualAndExecutionDateLessThanEqual(String user, LocalDate from, LocalDate to);
+    Optional<List<OutflowDocument>> findByOwnerIdAndExecutionDateBetween(String user, LocalDate from, LocalDate to);
 
     Optional<OutflowDocument> findByIdAndOwnerId(String itemId, String id);
 }

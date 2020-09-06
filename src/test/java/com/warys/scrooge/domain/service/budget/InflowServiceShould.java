@@ -135,7 +135,7 @@ class InflowServiceShould {
         }).build();
         final List<InflowDocument> expected = List.of(inflow);
         when(user.getId()).thenReturn(CURRENT_USER_ID);
-        when(inflowRepository.findByOwnerIdAndExecutionDateGreaterThanEqualAndExecutionDateLessThanEqual(anyString(), any(LocalDate.class), any(LocalDate.class)))
+        when(inflowRepository.findByOwnerIdAndExecutionDateBetween(anyString(), any(LocalDate.class), any(LocalDate.class)))
                 .thenReturn(Optional.of(expected));
 
         final List<InflowDocument> actual = tested.getPagedData(user, null, null);
