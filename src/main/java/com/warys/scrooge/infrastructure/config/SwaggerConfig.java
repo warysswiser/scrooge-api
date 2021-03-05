@@ -21,25 +21,25 @@ import static java.util.Collections.singletonList;
 @EnableSwagger2
 public class SwaggerConfig {
 
-    @Value("${app.swagger.api.title}")
+    @Value("${swagger.api.title}")
     private String title;
-    @Value("${app.swagger.api.description}")
+    @Value("${swagger.api.description}")
     private String description;
-    @Value("${app.swagger.api.version}")
+    @Value("${swagger.api.version}")
     private String version;
-    @Value("${app.swagger.api.termsOfService}")
+    @Value("${swagger.api.termsOfService}")
     private String termsOfService;
-    @Value("${app.swagger.api.contact.name}")
+    @Value("${swagger.api.contact.name}")
     private String contactName;
-    @Value("${app.swagger.api.license.name}")
+    @Value("${swagger.api.license.name}")
     private String license;
-    @Value("${app.swagger.api.license.url}")
+    @Value("${swagger.api.license.url}")
     private String licenseUrl;
-    @Value("${app.swagger.api.contact.url}")
+    @Value("${swagger.api.contact.url}")
     private String contactUrl;
-    @Value("${app.swagger.api.contact.email}")
+    @Value("${swagger.api.contact.email}")
     private String contactEmail;
-    @Value("${app.swagger.basePackage}")
+    @Value("${swagger.basePackage}")
     private String basePackage;
 
     @Bean

@@ -1,92 +1,92 @@
 {
   "properties": [
     {
-      "name": "app.mail.auth.host",
+      "name": "mail.auth.host",
       "type": "java.lang.String",
       "description": "mail server hot."
     },
     {
-      "name": "app.mail.auth.port",
+      "name": "mail.auth.port",
       "type": "java.lang.Integer",
       "description": "mail server port."
     },
     {
-      "name": "app.mail.auth.username",
+      "name": "mail.auth.username",
       "type": "java.lang.String",
       "description": "mail server username."
     },
     {
-      "name": "app.mail.auth.password",
+      "name": "mail.auth.password",
       "type": "java.lang.String",
       "description": "mail server password."
     },
     {
-      "name": "app.mail.auth.protocol",
+      "name": "mail.auth.protocol",
       "type": "java.lang.String",
       "description": "mail server protocol."
     },
     {
-      "name": "app.mail.properties.mail.smtp.auth.enable",
+      "name": "mail.properties.mail.smtp.auth.enable",
       "type": "java.lang.Boolean",
       "description": "Define if the SMTP server need authentication."
     },
     {
-      "name": "app.mail.properties.mail.smtp.starttls.enable",
+      "name": "mail.properties.mail.smtp.starttls.enable",
       "type": "java.lang.Boolean",
       "description": "Define if the SMTP authentication is with time to live."
     },
     {
-      "name": "app.mail.properties.debug.enable",
+      "name": "mail.properties.debug.enable",
       "type": "java.lang.Boolean",
       "description": "Enable SMTP client debug mode."
     },
     {
-      "name": "app.swagger.basePackage",
+      "name": "swagger.basePackage",
       "type": "java.lang.String",
       "description": "Swagger basePackage."
     },
     {
-      "name": "app.swagger.api.title",
+      "name": "swagger.api.title",
       "type": "java.lang.String",
       "description": "Swagger API title."
     },
     {
-      "name": "app.swagger.api.description",
+      "name": "swagger.api.description",
       "type": "java.lang.String",
       "description": "Swagger API description."
     },
     {
-      "name": "app.swagger.api.version",
+      "name": "swagger.api.version",
       "type": "java.lang.String",
       "description": "Swagger API version."
     },
     {
-      "name": "app.swagger.api.termsOfService",
+      "name": "swagger.api.termsOfService",
       "type": "java.lang.String",
       "description": "Swagger API termsOfService."
     },
     {
-      "name": "app.swagger.api.license.name",
+      "name": "swagger.api.license.name",
       "type": "java.lang.String",
       "description": "Swagger API license name."
     },
     {
-      "name": "app.swagger.api.license.url",
+      "name": "swagger.api.license.url",
       "type": "java.lang.String",
       "description": "Swagger API license url."
     },
     {
-      "name": "app.swagger.api.contact.name",
+      "name": "swagger.api.contact.name",
       "type": "java.lang.String",
       "description": "Swagger API contact name."
     },
     {
-      "name": "app.swagger.api.contact.url",
+      "name": "swagger.api.contact.url",
       "type": "java.lang.String",
       "description": "Swagger API contact url."
     },
     {
-      "name": "app.swagger.api.contact.email",
+      "name": "swagger.api.contact.email",
       "type": "java.lang.String",
       "description": "Swagger API contact email."
     },
@@ -101,12 +101,12 @@
       "description": "Feature activation for email notification."
     },
     {
-      "name": "app.auth.token.expiration.days",
+      "name": "auth.token.expiration.days",
       "type": "java.lang.Integer",
       "description": "Token validity days."
     },
     {
-      "name": "app.swagger.api.name",
+      "name": "swagger.api.name",
       "type": "java.lang.String",
       "description": "API name that will be used by Swagger."
     },

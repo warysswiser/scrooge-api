@@ -11,21 +11,21 @@ import java.util.Properties;
 @Configuration
 public class MailConfig {
 
-    @Value("${app.mail.auth.host}")
+    @Value("${mail.auth.host}")
     private String host;
-    @Value("${app.mail.auth.port}")
+    @Value("${mail.auth.port}")
     private int port;
-    @Value("${app.mail.auth.username}")
+    @Value("${mail.auth.username}")
     private String username;
-    @Value("${app.mail.auth.password}")
+    @Value("${mail.auth.password}")
     private String password;
-    @Value("${app.mail.auth.protocol}")
+    @Value("${mail.auth.protocol}")
     private String protocol;
-    @Value("${app.mail.properties.mail.smtp.auth.enable}")
+    @Value("${mail.properties.mail.smtp.auth.enable}")
     private boolean withAuth;
-    @Value("${app.mail.properties.mail.smtp.starttls.enable}")
+    @Value("${mail.properties.mail.smtp.starttls.enable}")
     private boolean starttlsEnable;
-    @Value("${app.mail.properties.debug.enable}")
+    @Value("${mail.properties.debug.enable}")
     private boolean debug;
 
     @Bean

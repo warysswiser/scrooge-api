@@ -15,7 +15,7 @@ public class TokenProvider {
 
     private static final String SECRET = "ThisIsASecret";
 
-    @Value("${app.auth.token.expiration.days}")
+    @Value("${auth.token.expiration.days}")
     private int expirationDays;
 
     public String generateFrom(User user) {
