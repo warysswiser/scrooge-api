@@ -96,7 +96,7 @@
       "description": "Directory to push saved attachments."
     },
     {
-      "name": "app.feature.emailer.enabled",
+      "name": "feature.emailer.enabled",
       "type": "java.lang.Boolean",
       "description": "Feature activation for email notification."
     },
@@ -111,17 +111,17 @@
       "description": "API name that will be used by Swagger."
     },
     {
-      "name": "app.ocr.data.path",
+      "name": "ocr.data.path",
       "type": "java.lang.String",
       "description": "Ocr learned data."
     },
     {
-      "name": "app.ocr.default.language",
+      "name": "ocr.default.language",
       "type": "java.lang.String",
       "description": "Ocr default language."
     },
     {
-      "name": "app.ocr.files.dir",
+      "name": "ocr.files.dir",
       "type": "java.lang.String",
       "description": "Ocr directory for file that will be processed."
     }

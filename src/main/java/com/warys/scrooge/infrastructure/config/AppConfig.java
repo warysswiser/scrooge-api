@@ -19,9 +19,9 @@ import java.nio.file.Path;
 @EnableMongoAuditing
 public class AppConfig {
 
-    @Value("${app.ocr.data.path}")
+    @Value("${ocr.data.path}")
     private String dataPath;
-    @Value("${app.ocr.default.language}")
+    @Value("${ocr.default.language}")
     private String defaultLanguage;
 
     @Bean

@@ -13,7 +13,7 @@ public class MailNotifier implements Notifier {
 
     private static final String SUBSCRIPTION_MESSAGE = "Thanks for you subscription in scrooge";
     private final JavaMailSender emailSender;
-    @Value("${app.feature.emailer.enabled}")
+    @Value("${feature.emailer.enabled}")
     private boolean isEnables;
 
     public MailNotifier(JavaMailSender emailSender) {
