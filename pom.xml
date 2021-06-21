@@ -35,7 +35,7 @@
         <commons-lang3.version>3.9</commons-lang3.version>
         <jjwt.version>0.9.1</jjwt.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
-        <assertj-core.version>3.14.0</assertj-core.version>
+        <assertj-core.version>3.20.2</assertj-core.version>
         <powermock-module-junit4.version>2.0.5</powermock-module-junit4.version>
         <powermock-api-mockito2.version>2.0.6</powermock-api-mockito2.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
